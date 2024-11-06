@@ -3,7 +3,6 @@ import { TableColumn } from '../../models/table-column';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   standalone: true,
   selector: 'app-table',
@@ -11,9 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./table.component.css'],
   imports: [MatTableModule, CommonModule]
 })
-
 export class TableComponent implements OnInit {
-
 
   dataSource: any[string];
   displayedColumns: any = [];
@@ -31,13 +28,9 @@ export class TableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  isActionColumn(column: TableColumn, row: any): boolean {
-    return column.def === 'accion' &&
-      row.sincronizar === 'No' &&
-      row.rol === 'Learner';
+  isArray(value: any): boolean {
+    return Array.isArray(value);
   }
-
 }

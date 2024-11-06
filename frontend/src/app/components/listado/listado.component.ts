@@ -3,7 +3,6 @@ import { StockService } from '../../services/stock.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TableColumn } from '../../models/table-column';
-import { DataSource } from '@angular/cdk/collections';
 import { TableComponent } from '../table/table.component';
 
 @Component({
@@ -49,13 +48,17 @@ export class ListadoComponent implements OnInit {
     this.columnasMaterialesCompuestos = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
-      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' }
-    ]
+      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
+      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' }  // Nueva columna para mostrar detalles de materiales
+    ];
+
     this.columnasProductos = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
-      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' }
-    ]
+      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
+      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
+      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' } // Nueva columna para detalles de materiales compuestos
+    ];
   }
 
 }

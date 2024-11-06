@@ -1,15 +1,22 @@
 <div class="example-container mat-elevation-z8" *ngIf="dataSource">
-    <mat-table #table [dataSource]="dataSource">
-        <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
-            <mat-header-cell *matHeaderCellDef> {{column.label}} </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <ng-container>
-                  {{row[column.dataKey]}}
-                </ng-container>
-              </mat-cell>
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
+      <mat-header-cell *matHeaderCellDef> {{ column.label }} </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
+          <ul>
+            <li *ngFor="let item of row[column.dataKey]">
+              <span *ngIf="item.material">{{ item.material.nombre }} - {{ item.cantidad }}</span>
+              <span *ngIf="item.materialCompuesto">{{ item.materialCompuesto.nombre }} - {{ item.cantidad }}</span>
+            </li>
+          </ul>
         </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+        <ng-template #singleValue>
+          {{ row[column.dataKey] }}
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </div>
-  
