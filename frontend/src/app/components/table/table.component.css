@@ -80,18 +80,23 @@
     font-variant: normal;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-  }
-  
-  /* Step 2: Reference Individual Icons */
-  .login::before {
+}
+
+/* Step 2: Reference Individual Icons */
+.login::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\f007";
-  }
-  
-  /* Note: Make sure to include the correct weight and unicode value for the icon */
-  .tps::before {
+}
+
+/* Note: Make sure to include the correct weight and unicode value for the icon */
+.tps::before {
     font-family: "Font Awesome 5 Free";
     font-weight: 400;
     content: "\f1ea";
-  }
+}
+
+.tabla {
+    width: 70%;
+    place-self: center;
+}

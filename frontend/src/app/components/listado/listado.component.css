@@ -23,3 +23,6 @@ nav {
     text-decoration: underline;
   }
   
+  .titulo {
+    place-self: center;
+  }

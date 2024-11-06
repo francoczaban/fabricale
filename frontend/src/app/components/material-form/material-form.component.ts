@@ -27,10 +27,10 @@ export class MaterialFormComponent {
 
   addMaterial() {
     console.log("Material: ", this.material)
-    // this.stockService.addMaterial(this.material).subscribe(response => {
-    //   console.log('Material agregado:', response);
-    //   this.resetForm();
-    // });
+    this.stockService.addMaterial(this.material).subscribe(response => {
+      console.log('Material agregado:', response);
+      this.resetForm();
+    });
   }
 
   resetForm() {
