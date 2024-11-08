@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TabComponent } from './components/tab/tab.component';
 import { MenuComponent } from './components/menu/menu.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,

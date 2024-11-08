@@ -17,7 +17,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   tableColumns: TableColumn[] = [];
 
   @Input() set data(data: any[]) {
-    this.dataSource.data = data.slice(-10); // Mostrar solo los últimos 10 elementos
+    this.dataSource.data = data; // Mostrar solo los últimos 10 elementos
   }
 
   @Input() set columns(columns: TableColumn[]) {
