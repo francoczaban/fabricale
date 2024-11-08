@@ -1,1 +1,12 @@
-test
+user.service
+
+models usuario clave
+
+ruta: llama al controlador
+
+
+
+
+Cm3, Litros, kilos, gramos
+
+que pase un modelo de lo que creo un dia.
