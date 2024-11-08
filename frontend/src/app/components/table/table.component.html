@@ -1,15 +1,18 @@
 <div class="example-container mat-elevation-z8" *ngIf="dataSource">
-    <mat-table #table [dataSource]="dataSource">
-        <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
-            <mat-header-cell *matHeaderCellDef> {{column.label}} </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <ng-container>
-                  {{row[column.dataKey]}}
-                </ng-container>
-              </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+  <mat-table #table [dataSource]="dataSource">
+      <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
+          <mat-header-cell *matHeaderCellDef> {{ column.label }} </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <ng-container>
+                  {{ row[column.dataKey] }}
+              </ng-container>
+          </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- Agregar el paginador -->
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons="true"></mat-paginator>
+
 </div>
-  

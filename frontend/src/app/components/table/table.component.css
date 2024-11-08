@@ -95,3 +95,9 @@
     font-weight: 400;
     content: "\f1ea";
   }
+
+::ng-deep .mat-paginator-navigation-first,
+::ng-deep .mat-paginator-navigation-last {
+  display: inline-flex;
+  cursor: pointer;
+}
