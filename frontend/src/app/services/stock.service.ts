@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,13 +10,21 @@ export class StockService {
 
   constructor(private http: HttpClient) { }
 
-  // Métodos para materiales
+  // Métodos para materialescd
   getMateriales(): Observable<any> {
     return this.http.get(`${this.apiUrl}/materiales`);
   }
 
+  // Método de búsqueda genérico
+  search(type: 'materiales' | 'materiales-compuestos' | 'productos', query: string): Observable<any> {
+    let params = new HttpParams().set('q', query); // Parámetro de búsqueda
+    
+    // Realiza la búsqueda dependiendo del tipo
+    return this.http.get(`${this.apiUrl}/${type}`, { params });
+  }
+
   addMaterial(data: any): Observable<any> {
-    console.log("ALGO SALE: ", data)
+    console.log("ALGO SALE: ", data);
     return this.http.post(`${this.apiUrl}/materiales`, data);
   }
 
@@ -32,7 +40,7 @@ export class StockService {
   getMaterialesCompuestos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/materiales-compuestos`);
   }
- 
+
   addMaterialCompuesto(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/materiales-compuestos`, data);
   }
@@ -50,4 +58,3 @@ export class StockService {
     return this.http.post(`${this.apiUrl}/productos`, data);
   }
 }
-

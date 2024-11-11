@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { MaterialService } from '../../services/material.service';
 import { StockService } from '../../services/stock.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,7 +21,7 @@ export class MaterialCompuestoFormComponent implements OnInit {
   materialCompuestoForm: FormGroup;
   materiales: any[] = [];
 
-  constructor(private fb: FormBuilder, private materialService: MaterialService, private stockService: StockService) {
+  constructor(private fb: FormBuilder, private stockService: StockService) {
     this.materialCompuestoForm = this.fb.group({
       nombre: [''],
       codigo: [''],
@@ -34,7 +33,7 @@ export class MaterialCompuestoFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.materialService.getMateriales().subscribe(data => {
+    this.stockService.getMateriales().subscribe(data => {
       this.materiales = data;
     });
   }

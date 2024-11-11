@@ -1,3 +1,10 @@
+
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+
+
 <div class="example-container mat-elevation-z8" *ngIf="dataSource">
   <mat-table #table [dataSource]="dataSource">
       <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">

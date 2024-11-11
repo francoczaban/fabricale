@@ -28,6 +28,30 @@ app.get("/", (req, res) => {
     res.send("API de Gestión de Stock de Fábrica");
 });
 
+app.get('/api/:type', (req, res) => {
+  const { type } = req.params;
+  const { q } = req.query;
+
+  if (type === 'materiales') {
+    // Filtra los materiales según el parámetro q
+    const resultados = materiales.filter(item => item.nombre.includes(q) || item.codigo.includes(q));
+    return res.json(resultados);
+  }
+  if (type === 'materiales-compuestos') {
+    // Filtra los materiales compuestos
+    const resultados = materialesCompuestos.filter(item => item.nombre.includes(q) || item.codigo.includes(q));
+    return res.json(resultados);
+  }
+  if (type === 'productos') {
+    // Filtra los productos
+    const resultados = productos.filter(item => item.nombre.includes(q) || item.codigo.includes(q));
+    return res.json(resultados);
+  }
+
+  res.status(404).send('Tipo no encontrado');
+});
+
+
 // Escuchar en el puerto especificado
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
