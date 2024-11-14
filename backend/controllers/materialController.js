@@ -1,10 +1,12 @@
 const Material = require("../models/Material");
+const logger = require("../utils/logger");
 
 exports.crearMaterial = async (req, res) => {
     console.log("body: ", req.body)
     try {
         const material = new Material(req.body);
         await material.save();
+        logger.info(`Material creado exitosamente: ${nombre}`);
         res.status(201).json(material);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -16,6 +18,7 @@ exports.obtenerMateriales = async (req, res) => {
         const materiales = await Material.find();
         res.json(materiales);
     } catch (error) {
+        logger.error(`Error al crear material: ${error.message}`);
         res.status(500).json({ error: error.message });
     }
 };

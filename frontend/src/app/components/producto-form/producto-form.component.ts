@@ -23,6 +23,7 @@ export class ProductoFormComponent implements OnInit {
   productoForm: FormGroup;
   materiales: any[] = [];
   materialesCompuestos: any[] = [];
+  unidadesMedida: string[] = ['KG', 'LT', 'GR', 'CC']; // Lista simple de unidades
 
   constructor(private fb: FormBuilder, private stockService: StockService) {
     this.productoForm = this.fb.group({
@@ -38,6 +39,9 @@ export class ProductoFormComponent implements OnInit {
   ngOnInit(): void {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
+    window.addEventListener('wheel', (event) => {
+      // tu código aquí
+    }, { passive: true });
   }
 
   cargarMateriales() {
@@ -62,6 +66,7 @@ export class ProductoFormComponent implements OnInit {
 
   agregarMaterialUsado() {
     this.materialesUsados.push(this.fb.group({
+      unidadMedida: [''],
       material: ['', Validators.required],
       cantidad: [0, [Validators.required, Validators.min(1)]]
     }));
@@ -69,6 +74,7 @@ export class ProductoFormComponent implements OnInit {
 
   agregarMaterialCompuestoUsado() {
     this.materialesCompuestosUsados.push(this.fb.group({
+      unidadMedida: [''],
       materialCompuesto: ['', Validators.required],
       cantidad: [0, [Validators.required, Validators.min(1)]]
     }));
@@ -84,6 +90,7 @@ export class ProductoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.productoForm.valid) {
+      console.log("producto: ",this.productoForm.value)
       this.stockService.addProducto(this.productoForm.value).subscribe(
         (response) => {
           console.log('Producto creado:', response);

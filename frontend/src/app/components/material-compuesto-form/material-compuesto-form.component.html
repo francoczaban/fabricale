@@ -1,83 +1,76 @@
-<form [formGroup]="materialCompuestoForm" (ngSubmit)="onSubmit()" style="place-self: center;">
+<form [formGroup]="materialCompuestoForm" (ngSubmit)="onSubmit()">
   <h3>Crear Material Compuesto</h3>
-
-  <div>
-    <div>
-      <mat-form-field class="example-full-width" style="width:420px;">
+  <div style="display: flex; place-self: center;">
+    <div style=" width: 450px;">
+      <!-- Campo Nombre -->
+      <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
         <input matInput id="nombre" formControlName="nombre" placeholder="nombre">
       </mat-form-field>
-    </div>
-  
-    <div>
-      <mat-form-field class="example-full-width" style="width: 420px;">
-        <mat-label>Descripción</mat-label>
-        <textarea matInput id="descripcion" formControlName="descripcion"></textarea>
-      </mat-form-field>
-    </div>
-  
-    <div>
-      <mat-form-field class="example-full-width" style="width: 420px;">
+      
+      <!-- Campo Código -->
+      <mat-form-field class="example-full-width">
         <mat-label>Código</mat-label>
         <input matInput id="codigo" formControlName="codigo">
       </mat-form-field>
-    </div>
-  
-    <div>
+      
+      <!-- Campo Descripción -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput id="descripcion" formControlName="descripcion"></textarea>
+      </mat-form-field>
+      
+      <!-- Campo Unidad de Medida -->
       <mat-form-field class="example-full-width" style="width: 420px;">
         <mat-label>Unidad de Medida</mat-label>
-        <input matInput id="unidadMedida" formControlName="unidadMedida">
+        <mat-select formControlName="unidadMedida" required>
+          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+            {{ unidad }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-    </div>
-  
-    <div>
-      <mat-form-field class="example-full-width" style="width: 420px;">
+      
+      <!-- Campo Cantidad Total -->
+      <mat-form-field class="example-full-width">
         <mat-label>Cantidad Total</mat-label>
         <input matInput type="number" id="cantidad" formControlName="cantidad">
       </mat-form-field>
+      
+      <!-- Materiales Usados -->
+      <div formArrayName="materialesUsados">
+        <div *ngFor="let material of materialesUsadosArray.controls; let i = index" [formGroupName]="i">
+          <mat-form-field>
+            <mat-label>Material</mat-label>
+            <mat-select formControlName="material">
+              <mat-option *ngFor="let mat of materiales; trackBy: trackById" [value]="mat._id">
+                {{ mat.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="cantidad">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" >
+            <mat-label>Unidad de Medida</mat-label>
+            <mat-select formControlName="unidadMedida" required>
+              <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+                {{ unidad }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button type="button" mat-fab aria-label="Eliminar Material" (click)="eliminarMaterial(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-raised-button type="button" (click)="agregarMaterial()">Agregar Material</button>
     </div>
   </div>
-
   
-
-  <div formArrayName="materialesUsados" style="display: flex;">
-    <div *ngFor="let material of materialesUsadosArray.controls; let i = index" [formGroupName]="i">
-
-      <div>
-        <mat-form-field>
-          <mat-label>Material</mat-label>
-          <mat-select formControlName="material">
-            @for (mat of materiales; track materiales) {
-            <mat-option [value]="mat._id">{{ mat.nombre }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div>
-        <mat-form-field class="example-full-width">
-          <mat-label>Cantidad</mat-label>
-          <input matInput type="number" formControlName="cantidad">
-        </mat-form-field>
-      </div>
-
-      <button mat-fab aria-label="" (click)="eliminarMaterial(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
-
-    </div>
-  </div>
-
-  <br>
-  <div>
-    <button mat-raised-button (click)="agregarMaterial()" style="place-self: center;" style="width: 420px;">Agregar
-      Material</button>
-  </div>
-
-  <br>
-  <div>
-    <button mat-flat-button type="submit" style="place-self: center;" style="width: 420px;">Guardar Material
-      Compuesto</button>
-  </div>
-
+  <button mat-flat-button type="submit">Guardar Material Compuesto</button>
 </form>

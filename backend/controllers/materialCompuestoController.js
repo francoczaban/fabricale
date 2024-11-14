@@ -1,17 +1,14 @@
 const Material = require("../models/Material");
 const MaterialCompuesto = require("../models/MaterialCompuesto");
+const { convertirUnidades } = require("../utils/conversorUnidades");
+const logger = require("../utils/logger");
 
 // Crear un nuevo material compuesto
 exports.crearMaterialCompuesto = async (req, res) => {
     const { nombre, codigo, cantidad, unidadMedida, materialesUsados } = req.body;
 
     try {
-        // Verificar que materialesUsados es un array antes de iterar
-        if (!Array.isArray(materialesUsados)) {
-            return res.status(400).json({ error: "'materialesUsados' debe ser un array" });
-        }
-
-        // Verificar si hay suficiente stock de cada material usado
+        // Verificación de existencia y stock suficiente en cada material
         for (const item of materialesUsados) {
             const material = await Material.findById(item.material);
 
@@ -19,21 +16,35 @@ exports.crearMaterialCompuesto = async (req, res) => {
                 return res.status(404).json({ error: `Material con ID ${item.material} no encontrado` });
             }
 
-            if (material.cantidad < item.cantidad) {
+            // Convertir la cantidad a la misma unidad antes de comparar y descontar
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+
+            if (material.cantidad < cantidadUsadaEnInventarioUnidad) {
                 return res.status(400).json({
-                    error: `Stock insuficiente para el material ${material.nombre}. Disponible: ${material.cantidad}, requerido: ${item.cantidad}`
+                    error: `Stock insuficiente para el material ${material.nombre}. Disponible: ${material.cantidad} ${material.unidadMedida}, requerido: ${cantidadUsadaEnInventarioUnidad} ${material.unidadMedida}`
                 });
             }
         }
 
-        // Descontar el stock de cada material usado
+
+
+
+        // Descuento de inventario en la unidad correspondiente
         for (const item of materialesUsados) {
+            const material = await Material.findById(item.material);  // Obtener nuevamente el material
+
+            if (!material) {
+                logger.error(`Material con ID ${item.material} no encontrado en el proceso de descuento`);
+                return res.status(404).json({ error: `Material con ID ${item.material} no encontrado` });
+            }
+
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
             await Material.findByIdAndUpdate(item.material, {
-                $inc: { cantidad: -item.cantidad }
+                $inc: { cantidad: -cantidadUsadaEnInventarioUnidad }
             });
         }
 
-        // Crear el nuevo material compuesto
+        // Crear el material compuesto después de descontar los materiales
         const materialCompuesto = new MaterialCompuesto({
             nombre,
             codigo,
@@ -43,8 +54,10 @@ exports.crearMaterialCompuesto = async (req, res) => {
         });
 
         await materialCompuesto.save();
+        logger.info(`Material Compuesto creado exitosamente: ${nombre}`);
         res.status(201).json(materialCompuesto);
     } catch (error) {
+        logger.error(`Error al crear material compuesto: ${error.stack}`);
         res.status(500).json({ error: error.message });
     }
 };
@@ -57,4 +70,6 @@ exports.obtenerMaterialesCompuestos = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
 

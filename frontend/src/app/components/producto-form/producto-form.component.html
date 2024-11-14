@@ -22,12 +22,15 @@
     </mat-form-field>
   </div>
 
-  <div>
-    <mat-form-field class="example-full-width" style="width: 420px;">
-      <mat-label>Unidad de Medida</mat-label>
-      <input matInput id="unidadMedida" formControlName="unidadMedida">
-    </mat-form-field>
-  </div>
+  <!-- Campo Unidad de Medida -->
+  <mat-form-field class="example-full-width" style="width: 420px;">
+    <mat-label>Unidad de Medida</mat-label>
+    <mat-select formControlName="unidadMedida" required>
+      <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+        {{ unidad }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div formArrayName="materialesUsados">
     <h5 style="text-align: center;">Materiales</h5>
@@ -52,14 +55,23 @@
         </mat-form-field>
       </div>
 
-      <button mat-fab aria-label="" (click)="eliminarMaterialUsado(i)">
+      <mat-form-field class="example-full-width" >
+        <mat-label>Unidad de Medida</mat-label>
+        <mat-select formControlName="unidadMedida" required>
+          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+            {{ unidad }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button  mat-fab  type="button" (click)="eliminarMaterialUsado(i)">
         <mat-icon>delete</mat-icon>
       </button>
 
     </div>
     
     <br>
-    <button mat-raised-button (click)="agregarMaterialUsado()" style="place-self: center;" style="width: 420px;">Agregar
+    <button mat-raised-button type="button" (click)="agregarMaterialUsado()" style="place-self: center;" style="width: 420px;">Agregar
       Material</button>
 
   </div>
@@ -88,13 +100,22 @@
         </mat-form-field>
       </div>
 
-      <button mat-fab aria-label="" (click)="eliminarMaterialCompuestoUsado(i)">
+      <mat-form-field class="example-full-width" >
+        <mat-label>Unidad de Medida</mat-label>
+        <mat-select formControlName="unidadMedida" required>
+          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+            {{ unidad }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="button" mat-fab aria-label="" (click)="eliminarMaterialCompuestoUsado(i)">
         <mat-icon>delete</mat-icon>
       </button>
       
     </div>
     <br>
-    <button mat-raised-button (click)="agregarMaterialCompuestoUsado()" style="place-self: center;" style="width: 420px;">Agregar
+    <button type="button" mat-raised-button (click)="agregarMaterialCompuestoUsado()" style="place-self: center;" style="width: 420px;">Agregar
       Material Compuesto</button>
 
   </div>

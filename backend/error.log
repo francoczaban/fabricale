@@ -1,0 +1,6 @@
+2024-11-13 15:14:36 error: Error al crear material compuesto: convertirUnidades is not a function
+2024-11-13 15:18:05 error: Error al crear material compuesto: conversorUnidades is not a function
+2024-11-13 15:28:53 error: Error al crear material compuesto: convertirUnidades is not a function
+2024-11-13 15:30:08 error: Error al crear material compuesto: No se puede convertir de undefined a KG
+2024-11-13 15:33:02 error: Error al crear material compuesto: No se puede convertir de undefined a KG
+2024-11-13 16:05:52 error: Error al crear material compuesto: material is not defined
