@@ -1,0 +1,16 @@
+<div>
+    <h2>Register</h2>
+    <form (ngSubmit)="onRegister()">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" [(ngModel)]="email" name="email" required autocomplete="email" />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" [(ngModel)]="password" name="password" required autocomplete="current-password"/>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+</div>

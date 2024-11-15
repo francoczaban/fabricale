@@ -6,6 +6,7 @@ const materialRoutes = require("./routes/materialRoutes");
 const materialCompuestoRoutes = require("./routes/materialCompuestoRoutes");
 const productoRoutes = require("./routes/productoRoutes");
 const logger = require("./utils/logger"); 
+const auth = require('./routes/auth');
 
 const app = express();
 app.use(express.json());
@@ -23,6 +24,7 @@ app.use((err, req, res, next) => {
 app.use("/api/materiales-compuestos", materialCompuestoRoutes);
 app.use("/api/productos", productoRoutes);
 app.use("/api/materiales", materialRoutes);
+app.use('/api/register', auth);
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost:27017/fabrica', {
