@@ -5,8 +5,8 @@ function convertirUnidades(cantidad, unidadOrigen, unidadDestino) {
     const conversiones = {
         KG: { GR: 1000 },
         GR: { KG: 0.001 },
-        L: { ML: 1000 },
-        ML: { L: 0.001 },
+        LT: { CC: 1000 },
+        CC: { LT: 0.001 },
         // Añade aquí otras conversiones necesarias
     };
 

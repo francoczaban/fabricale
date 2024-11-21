@@ -16,7 +16,6 @@ export class StockService {
   }
 
   addMaterial(data: any): Observable<any> {
-    console.log("ALGO SALE: ", data)
     return this.http.post(`${this.apiUrl}/materiales`, data);
   }
 
@@ -26,6 +25,10 @@ export class StockService {
 
   deleteMaterial(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/materiales/${id}`);
+  }
+
+  getStockByMaterial(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/materiales/${id}/stock`);
   }
 
   // Métodos para materiales compuestos
@@ -50,4 +53,3 @@ export class StockService {
     return this.http.post(`${this.apiUrl}/productos`, data);
   }
 }
-

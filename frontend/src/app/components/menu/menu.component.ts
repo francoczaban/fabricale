@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class MenuComponent {
 
+
   constructor(private router: Router, private authService: AuthService) { }
 
   aMateriales() {
@@ -30,6 +31,10 @@ export class MenuComponent {
   aProductos() {
     this.router.navigateByUrl("/productos");
   }
+
+  aProveedores() {
+    this.router.navigateByUrl("/proveedores");
+    }
 
   logout() {
     this.authService.logout();

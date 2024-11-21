@@ -59,4 +59,15 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  formatNumber(value: number): string {
+    if (typeof value !== 'number') {
+      return value; // Si no es un número, retorna el valor tal cual
+    }
+    if (Number.isInteger(value)) {
+      return value.toString(); // Si es entero, muestra sin decimales
+    }
+    return value.toFixed(2); // Si es decimal, redondea a 2 decimales
+  }
+  
 }

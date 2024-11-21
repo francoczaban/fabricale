@@ -5,6 +5,7 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
 import { ListadoComponent } from './components/listado/listado.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ProveedorFormComponent } from './components/proveedor-form/proveedor-form.component'; // Importa el componente de proveedores
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -14,8 +15,7 @@ export const routes: Routes = [
     { path: 'materiales-compuestos', component: MaterialCompuestoFormComponent, canActivate: [authGuard] },
     { path: 'productos', component: ProductoFormComponent, canActivate: [authGuard] },
     { path: 'listado', component: ListadoComponent, canActivate: [authGuard] },
-    { path: '', redirectTo: '/listado', pathMatch: 'full' }
+    { path: 'proveedores', component: ProveedorFormComponent, canActivate: [authGuard] }, // Nueva ruta para proveedores
+    { path: '', redirectTo: '/listado', pathMatch: 'full' }, // Ruta por defecto
+    { path: '**', redirectTo: '/listado', pathMatch: 'full' } // Ruta wildcard para manejar rutas no encontradas
 ];
-
-
-

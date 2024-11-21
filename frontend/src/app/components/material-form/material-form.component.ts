@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common'
   selector: 'app-material-form',
   templateUrl: './material-form.component.html',
   imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule,
-     MatIconModule, MatDividerModule, MatButtonModule, MatSelectModule],
+    MatIconModule, MatDividerModule, MatButtonModule, MatSelectModule],
 })
 export class MaterialFormComponent {
   unidadesMedida: string[] = ['KG', 'LT', 'GR', 'CC']; // Lista simple de unidades
@@ -23,7 +23,8 @@ export class MaterialFormComponent {
     nombre: '',
     codigo: '',
     cantidad: 0,
-    unidadMedida: ''
+    unidadMedida: '',
+    precio: 0 // Campo para el precio
   };
 
   constructor(private stockService: StockService) { }
@@ -35,13 +36,15 @@ export class MaterialFormComponent {
       this.resetForm();
     });
   }
+  
 
   resetForm() {
     this.material = {
       nombre: '',
       codigo: '',
       cantidad: 0,
-      unidadMedida: ''
+      unidadMedida: '',
+      precio: 0 // Resetea el precio a 0
     };
   }
 }

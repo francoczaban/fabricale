@@ -26,16 +26,9 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit() {
     this.setTableColumns();
-    this.stockService.getMateriales().subscribe(data => this.dataSourceMateriales = data);
-    this.stockService.getMaterialesCompuestos().subscribe({
-      next: (data) => {
-        this.dataSourceMaterialesCompuestos = data;
-      },
-      error: (error) => {
-        console.error('Error al obtener materiales compuestos', error);
-      },
-    });
-    this.stockService.getProductos().subscribe(data => this.dataSourceProductos = data);
+    this.cargarMateriales();
+    this.cargarMaterialesCompuestos();
+    this.cargarProductos();
   }
 
   setTableColumns() {
@@ -43,13 +36,15 @@ export class ListadoComponent implements OnInit {
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
-      { label: 'Unidad Medida', def: 'unidadMedida', dataKey: 'unidadMedida' }
-    ]
+      { label: 'Unidad de Medida', def: 'unidadMedida', dataKey: 'unidadMedida' },
+      { label: 'Costo', def: 'precio', dataKey: 'precio' }
+    ];
+
     this.columnasMaterialesCompuestos = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
-      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' }  // Nueva columna para mostrar detalles de materiales
+      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' } // Detalles de materiales usados
     ];
 
     this.columnasProductos = [
@@ -57,8 +52,40 @@ export class ListadoComponent implements OnInit {
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
-      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' } // Nueva columna para detalles de materiales compuestos
+      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' } // Detalles de materiales compuestos usados
     ];
   }
 
+  cargarMateriales() {
+    this.stockService.getMateriales().subscribe({
+      next: (data) => {
+        this.dataSourceMateriales = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener los materiales:', error);
+      }
+    });
+  }
+
+  cargarMaterialesCompuestos() {
+    this.stockService.getMaterialesCompuestos().subscribe({
+      next: (data) => {
+        this.dataSourceMaterialesCompuestos = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener los materiales compuestos:', error);
+      }
+    });
+  }
+
+  cargarProductos() {
+    this.stockService.getProductos().subscribe({
+      next: (data) => {
+        this.dataSourceProductos = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener los productos:', error);
+      }
+    });
+  }
 }

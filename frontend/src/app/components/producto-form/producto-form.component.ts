@@ -88,6 +88,12 @@ export class ProductoFormComponent implements OnInit {
     this.materialesCompuestosUsados.removeAt(index);
   }
 
+  getStockOptions(materialId: string): number[] {
+    const material = this.materiales.find(mat => mat._id === materialId);
+    return material ? Array.from({ length: material.stock }, (_, i) => i + 1) : [];
+  }
+  
+
   onSubmit() {
     if (this.productoForm.valid) {
       console.log("producto: ",this.productoForm.value)

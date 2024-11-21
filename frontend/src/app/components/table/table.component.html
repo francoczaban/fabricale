@@ -5,7 +5,6 @@
 
 <div class="example-container mat-elevation-z8" *ngIf="dataSource">
   <!-- Agrega matSort aquí para habilitar la ordenación -->
-  
   <mat-table #table [dataSource]="dataSource" matSort>
     <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
       <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
@@ -13,13 +12,17 @@
         <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
           <ul>
             <li *ngFor="let item of row[column.dataKey]">
-              <span *ngIf="item.material">{{ item.material.nombre }} - {{ item.cantidad }}</span>
-              <span *ngIf="item.materialCompuesto">{{ item.materialCompuesto.nombre }} - {{ item.cantidad }}</span>
+              <span *ngIf="item.material">
+                {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }}
+              </span>
+              <span *ngIf="item.materialCompuesto">
+                {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }}
+              </span>
             </li>
           </ul>
         </ng-container>
         <ng-template #singleValue>
-          {{ row[column.dataKey] }}
+          {{ formatNumber(row[column.dataKey]) }}
         </ng-template>
       </mat-cell>
     </ng-container>

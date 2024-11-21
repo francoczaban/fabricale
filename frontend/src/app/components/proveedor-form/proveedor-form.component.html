@@ -1,0 +1,46 @@
+<form class="form-container" (ngSubmit)="addProveedor()">
+  <h3>Crear Proveedor</h3>
+
+  <!-- Nombre del proveedor -->
+  <mat-form-field class="full-width">
+    <mat-label>Nombre del proveedor</mat-label>
+    <input matInput [(ngModel)]="proveedor.nombre" name="nombre" required />
+  </mat-form-field>
+
+  <!-- Dirección del proveedor -->
+  <mat-form-field class="full-width">
+    <mat-label>Dirección</mat-label>
+    <input
+      matInput
+      [(ngModel)]="proveedor.direccion"
+      name="direccion"
+      required
+    />
+  </mat-form-field>
+
+  <!-- Email del proveedor -->
+  <mat-form-field class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="proveedor.email" name="email" type="email" />
+  </mat-form-field>
+
+  <!-- Telefono del proveedor -->
+  <mat-form-field class="full-width">
+    <mat-label>Teléfono</mat-label>
+    <input
+      matInput
+      [(ngModel)]="proveedor.telefono"
+      name="telefono"
+      type="tel"
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit">
+      Guardar Proveedor
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="resetForm()">
+      Limpiar
+    </button>
+  </div>
+</form>
