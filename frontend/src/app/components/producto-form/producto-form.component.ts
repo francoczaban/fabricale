@@ -45,14 +45,16 @@ export class ProductoFormComponent implements OnInit {
   }
 
   cargarMateriales() {
-    this.stockService.getMateriales().subscribe((data) => {
-      this.materiales = data;
+    this.stockService.getMateriales().subscribe((data) => {      
+      this.materiales = data;      
+      this.materiales = this.materiales.filter(material => material.cantidad != 0);      
     });
   }
 
   cargarMaterialesCompuestos() {
     this.stockService.getMaterialesCompuestos().subscribe((data) => {
       this.materialesCompuestos = data;
+      this.materialesCompuestos = this.materialesCompuestos.filter(materialesCompuestos => materialesCompuestos.cantidad != 0);
     });
   }
 
@@ -103,6 +105,7 @@ export class ProductoFormComponent implements OnInit {
           this.productoForm.reset();
         },
         (error) => {
+          alert(error.error.error)
           console.error('Error al crear producto:', error);
         }
       );

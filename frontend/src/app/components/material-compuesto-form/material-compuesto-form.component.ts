@@ -39,10 +39,13 @@ export class MaterialCompuestoFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Cargar materiales
-    this.materialService.getMateriales().subscribe(data => {
-      this.materiales = data;
-      this.cargarStock();
+    this.cargarMateriales()
+  }
+
+  cargarMateriales() {
+    this.materialService.getMateriales().subscribe((data) => {      
+      this.materiales = data;      
+      this.materiales = this.materiales.filter(material => material.cantidad != 0);      
     });
   }
 
@@ -84,17 +87,17 @@ export class MaterialCompuestoFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.materialCompuestoForm.value)
-    // if (this.materialCompuestoForm.valid) {
-    //   this.stockService.addMaterialCompuesto(this.materialCompuestoForm.value).subscribe({
-    //     next: response => console.log('Material compuesto guardado exitosamente', response),
-    //     error: error => {
-    //       console.error('Error al guardar el material compuesto', error);
-    //       alert('Ocurrió un error al guardar el material compuesto. Por favor, revisa los datos y vuelve a intentarlo.');
-    //     }
-    //   });
-    // } else {
-    //   alert('Por favor, completa todos los campos obligatorios antes de enviar.');
-    // }
+    if (this.materialCompuestoForm.valid) {
+      this.stockService.addMaterialCompuesto(this.materialCompuestoForm.value).subscribe({
+        next: response => console.log('Material compuesto guardado exitosamente', response),
+        error: error => {
+          console.error('Error al guardar el material compuesto', error);
+          alert('Ocurrió un error al guardar el material compuesto. Por favor, revisa los datos y vuelve a intentarlo.');
+        }
+      });
+    } else {
+      alert('Por favor, completa todos los campos obligatorios antes de enviar.');
+    }
   }
 
   get materialesUsadosList() {
