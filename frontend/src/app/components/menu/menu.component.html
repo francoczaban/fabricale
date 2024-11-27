@@ -1,9 +1,20 @@
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="aMateriales()">Materiales</button>
-  <button mat-menu-item (click)="aMaterialesCompuestos()">Materiales Compuestos</button>
-  <button mat-menu-item (click)="aProductos()">Productos</button>
-  <button mat-menu-item (click)="aListado()">Lista Materiales / Productos</button>
-  <button mat-menu-item (click)="aProveedores()">Proveedores</button>
-  <button mat-menu-item (click)="logout()">Cerrar Sesion</button>
-</mat-menu>
+<nav class="navbar">
+  <ul class="navbar-links">
+    <li>
+      <a (click)="navigateTo('/materiales')">Materiales</a>
+    </li>
+    <li>
+      <a (click)="navigateTo('/materiales-compuestos')">Materiales Compuestos</a>
+    </li>
+    <li>
+      <a (click)="navigateTo('/productos')">Productos</a>
+    </li>
+    <li>
+      <a (click)="navigateTo('/listado')">Lista Materiales / Productos</a>
+    </li>
+    <li>
+      <a (click)="navigateTo('/proveedores')">Proveedores</a>
+    </li>
+  </ul>
+  <a class="logout-btn" (click)="logout()">Cerrar Sesión</a>
+</nav>
