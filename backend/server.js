@@ -8,6 +8,11 @@ const productoRoutes = require("./routes/productoRoutes");
 const proveedorRoutes = require("./routes/proveedorRoutes"); // NUEVO
 const logger = require("./utils/logger"); 
 const auth = require('./routes/auth');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require("./utils/swaggerConfig"); // Ajusta la ruta si es necesario
+
+// Agrega la ruta para la documentación Swagger
+
 
 const app = express();
 app.use(express.json());
@@ -28,6 +33,7 @@ app.use("/api/materiales", materialRoutes);
 app.use('/api/register', auth);
 app.use('/api/proveedores', proveedorRoutes);
 app.use(bodyParser.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 mongoose.connect('mongodb://localhost:27017/fabrica', {
 })

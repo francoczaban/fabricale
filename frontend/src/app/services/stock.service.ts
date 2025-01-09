@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class StockService {
   private apiUrl = 'http://localhost:3000/api'; // Ajusta la URL a la de tu backend
 
@@ -32,17 +33,54 @@ export class StockService {
   }
 
   // Métodos para materiales compuestos
-  getMaterialesCompuestos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/materiales-compuestos`);
-  }
+  // getMaterialesCompuestos(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/materiales-compuestos`);
+  // }
  
-  addMaterialCompuesto(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/materiales-compuestos`, data);
+  // addMaterialCompuesto(data: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/materiales-compuestos`, data);
+  // }
+
+  // updateMaterialCompuesto(id: string, data: any): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/materiales-compuestos/${id}`, data);
+  // }
+
+  // deleteMaterialCompuesto(id: string): Observable<any> {
+  //   return this.http.delete(`${this.apiUrl}/materiales-compuestos/${id}`);
+  // }
+
+  addMaterialCompuesto(materialCompuesto: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/materiales-compuestos`, materialCompuesto);
+  }
+
+  getMaterialesCompuestos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/materiales-compuestos`);
+  }
+
+  updateMaterialCompuesto(id: string, materialCompuesto: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/materiales-compuestos/${id}`, materialCompuesto);
   }
 
   deleteMaterialCompuesto(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/materiales-compuestos/${id}`);
   }
+
+  // Métodos para productos
+  // getProductos(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/productos`);
+  // }
+
+  // addProducto(data: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/productos`, data);
+  // }
+
+  // updateProducto(id: string, data: any): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/productos/${id}`, data);
+  // }
+
+  // deleteProducto(id: string): Observable<any> {
+  //   return this.http.delete(`${this.apiUrl}/productos/${id}`);
+  // }
 
   // Métodos para productos
   getProductos(): Observable<any> {
@@ -52,4 +90,13 @@ export class StockService {
   addProducto(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/productos`, data);
   }
+
+  updateProducto(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/productos/${id}`, data);
+  }
+
+  deleteProducto(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/productos/${id}`);
+}
+
 }

@@ -1,0 +1,42 @@
+<form class="materialesform" (ngSubmit)="editarMaterial()" style="place-self: center;">
+    <h3 style="text-align: center;">Editar Material</h3>
+    <div>
+        <div>
+            <mat-form-field class="example-full-width" style="width: 420px;">
+                <mat-label>Nombre:</mat-label>
+                <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" style="width: 420px;">
+                <mat-label>Código:</mat-label>
+                <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo" required>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div>
+        <mat-form-field class="example-full-width" style="width: 420px;">
+            <mat-label>Cantidad:</mat-label>
+            <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad" required>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="example-full-width" style="width: 420px;">
+            <mat-label>Unidad de Medida:</mat-label>
+            <input matInput type="text" id="unidadMedida" name="unidadMedida" [(ngModel)]="material.unidadMedida">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field class="example-full-width" style="width: 420px;">
+            <mat-label>Precio:</mat-label>
+            <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio" placeholder="0">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <button mat-flat-button color="primary" style="width: 420px;" (click)="editarMaterial()">Guardar Material</button>
+    </div>
+</form>

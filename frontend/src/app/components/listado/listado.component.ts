@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TableColumn } from '../../models/table-column';
 import { TableComponent } from '../table/table.component';
+import { Router } from '@angular/router';
+import { DataTransferService } from '../../services/data-transfer.service';
 
 @Component({
   standalone: true,
@@ -22,13 +24,28 @@ export class ListadoComponent implements OnInit {
   dataSourceMaterialesCompuestos: any[] = [];
   dataSourceProductos: any[] = [];
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private router: Router, private dataTransfer: DataTransferService) { }
 
   ngOnInit() {
     this.setTableColumns();
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
     this.cargarProductos();
+  }
+
+  editarMaterial(material: any): void {
+    console.log("material id: ", material)
+    this.router.navigate(['/editar-material', material]);
+  }
+
+  editarMaterialCompuesto(materialCompuesto: any): void {
+    this.dataTransfer.setData(materialCompuesto);
+    this.router.navigate(['/editar-materialCompuesto']);
+  }
+
+  editarProducto(producto: any): void {
+    console.log("producto id: ", producto)
+    this.router.navigate(['/editar-producto', producto]);
   }
 
   setTableColumns() {

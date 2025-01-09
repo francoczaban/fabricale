@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, EventEmitter, Output  } from '@angular/core';
 import { TableColumn } from '../../models/table-column';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,15 +20,27 @@ import { MatSortModule } from '@angular/material/sort';
 export class TableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [];
+  
   tableColumns: TableColumn[] = [];
+  @Output() editRow = new EventEmitter<any>();
 
   @Input() set data(data: any[]) {
     this.dataSource.data = data;
   }
 
+  // @Input() set columns(columns: TableColumn[]) {
+  //   this.tableColumns = columns;
+  //   this.displayedColumns = this.tableColumns.map(col => col.def);
+  // }
+
   @Input() set columns(columns: TableColumn[]) {
     this.tableColumns = columns;
     this.displayedColumns = this.tableColumns.map(col => col.def);
+  
+    // Agregar la columna de acciones si no está incluida
+    if (!this.displayedColumns.includes('accion')) {
+      this.displayedColumns.push('accion');
+    }
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -68,6 +80,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       return value.toString(); // Si es entero, muestra sin decimales
     }
     return value.toFixed(2); // Si es decimal, redondea a 2 decimales
+  }
+
+  onEdit(row: any): void {
+    this.editRow.emit(row);
   }
   
 }
