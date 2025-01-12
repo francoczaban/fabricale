@@ -1,1 +1,103 @@
-<p>producto-editar works!</p>
+<form class="materialesform" [formGroup]="productoForm" (ngSubmit)="editarProducto()" style="place-self: center;">
+    <h3 style="text-align: center;">Editar Material Compuesto</h3>
+  
+    <!-- Campo: Nombre -->
+    <div>
+      <mat-form-field class="example-full-width" style="width: 420px;">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" required>
+      </mat-form-field>
+    </div>
+  
+    <!-- Campo: Código -->
+    <div>
+      <mat-form-field class="example-full-width" style="width: 420px;">
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="codigo" required>
+      </mat-form-field>
+    </div>
+  
+    <!-- Campo: Unidad de Medida -->
+    <div>
+      <mat-form-field class="example-full-width" style="width: 420px;">
+        <mat-label>Unidad de Medida</mat-label>
+        <input matInput formControlName="unidadMedida" required>
+      </mat-form-field>
+    </div>
+  
+    <!-- Campo: Cantidad -->
+    <div>
+      <mat-form-field class="example-full-width" style="width: 420px;">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" formControlName="cantidad" required>
+      </mat-form-field>
+    </div>
+  
+    <!-- Lista de Materiales Compuestos Usados -->
+    <div formArrayName="materialesCompuestosUsados">
+      <h4>Materiales Compuestos Usados</h4>
+      <div *ngFor="let material of materialesUsados.controls; let i = index" [formGroupName]="i" style="margin-bottom: 15px;">
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <mat-form-field class="example-full-width" style="width: 380px;">
+                <mat-label>Nombre del Material</mat-label>
+                <input matInput formControlName="nombre" readonly>
+              </mat-form-field>
+            </div>
+  
+            <div>
+              <mat-form-field class="example-full-width" style="width: 380px;">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="cantidad" required>
+              </mat-form-field>
+            </div>
+  
+            <div>
+              <mat-form-field class="example-full-width" style="width: 380px;">
+                <mat-label>Unidad de Medida</mat-label>
+                <input matInput formControlName="unidadMedida" readonly>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+
+    <div formArrayName="materialesUsados">
+        <h4>Materiales Usados</h4>
+        <div *ngFor="let material of materialesUsados.controls; let i = index" [formGroupName]="i" style="margin-bottom: 15px;">
+          <mat-card>
+            <mat-card-content>
+              <div>
+                <mat-form-field class="example-full-width" style="width: 380px;">
+                  <mat-label>Nombre del Material</mat-label>
+                  <input matInput formControlName="nombre" readonly>
+                </mat-form-field>
+              </div>
+    
+              <div>
+                <mat-form-field class="example-full-width" style="width: 380px;">
+                  <mat-label>Cantidad</mat-label>
+                  <input matInput type="number" formControlName="cantidad" required>
+                </mat-form-field>
+              </div>
+    
+              <div>
+                <mat-form-field class="example-full-width" style="width: 380px;">
+                  <mat-label>Unidad de Medida</mat-label>
+                  <input matInput formControlName="unidadMedida" readonly>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+  
+    <!-- Botón Guardar -->
+    <div>
+      <button mat-flat-button color="primary" style="width: 420px;">Guardar Material Compuesto</button>
+    </div>
+  </form>
+  

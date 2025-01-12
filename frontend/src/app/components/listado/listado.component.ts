@@ -34,8 +34,8 @@ export class ListadoComponent implements OnInit {
   }
 
   editarMaterial(material: any): void {
-    console.log("material id: ", material)
-    this.router.navigate(['/editar-material', material]);
+    this.dataTransfer.setData(material);
+    this.router.navigate(['/editar-material']);
   }
 
   editarMaterialCompuesto(materialCompuesto: any): void {
@@ -44,8 +44,8 @@ export class ListadoComponent implements OnInit {
   }
 
   editarProducto(producto: any): void {
-    console.log("producto id: ", producto)
-    this.router.navigate(['/editar-producto', producto]);
+    this.dataTransfer.setData(producto);
+    this.router.navigate(['/editar-producto']);
   }
 
   setTableColumns() {
