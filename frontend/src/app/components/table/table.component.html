@@ -27,20 +27,14 @@
     </ng-container>
 
     <!-- Columna para acciones -->
-    <!-- <ng-container matColumnDef="accion">
-      <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary" (click)="onEdit(row.id)">
-          Editar
-        </button>
-      </mat-cell>
-    </ng-container> -->
-    <!-- Columna para acciones -->
     <ng-container matColumnDef="accion">
       <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-raised-button color="primary" (click)="onEdit(row)">
           Editar
+        </button>
+        <button mat-raised-button color="warn" (click)="onDelete(row)">
+          Eliminar
         </button>
       </mat-cell>
     </ng-container>

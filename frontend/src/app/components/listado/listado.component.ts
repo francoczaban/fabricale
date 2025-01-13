@@ -6,12 +6,15 @@ import { TableColumn } from '../../models/table-column';
 import { TableComponent } from '../table/table.component';
 import { Router } from '@angular/router';
 import { DataTransferService } from '../../services/data-transfer.service';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 @Component({
   standalone: true,
   selector: 'app-listado',
   templateUrl: './listado.component.html',
-  imports: [CommonModule, RouterModule, TableComponent]
+  imports: [CommonModule, RouterModule, TableComponent, MatIconModule]
 })
 export class ListadoComponent implements OnInit {
   materiales: any[] = [];
@@ -105,4 +108,43 @@ export class ListadoComponent implements OnInit {
       }
     });
   }
+
+  deleteMaterial(material: any): void {
+    this.stockService.deleteMaterial(material._id).subscribe({
+      next: () => {        
+        this.cargarMateriales(); // Recargar la lista de materiales después de la eliminación
+      },
+      error: (err) => {
+        console.error('Error al eliminar el material:', err);
+        alert('No se pudo eliminar el material.');
+      }
+    });
+  }
+  
+  deleteMaterialCompuesto(materialCompuesto: any): void {
+    this.stockService.deleteMaterialCompuesto(materialCompuesto._id).subscribe({
+      next: () => {
+        alert('Material Compuesto eliminado correctamente.');
+        this.cargarMaterialesCompuestos(); // Recargar la lista de materiales compuestos
+      },
+      error: (err) => {
+        console.error('Error al eliminar el material compuesto:', err);
+        alert('No se pudo eliminar el material compuesto.');
+      }
+    });
+  }
+  
+  deleteProducto(producto: any): void {
+    this.stockService.deleteProducto(producto._id).subscribe({
+      next: () => {
+        alert('Producto eliminado correctamente.');
+        this.cargarProductos(); // Recargar la lista de productos
+      },
+      error: (err) => {
+        console.error('Error al eliminar el producto:', err);
+        alert('No se pudo eliminar el producto.');
+      }
+    });
+  }
+  
 }

@@ -40,7 +40,6 @@ exports.obtenerMateriales = async (req, res) => {
 // Actualizar un material con manejo de transacción
 exports.actualizarMaterial = async (req, res) => {
     try {
-        console.log("UPDATE MATERIAL")
         const material = await Material.findById(req.params.id);
 
         if (!material) {
@@ -59,22 +58,20 @@ exports.actualizarMaterial = async (req, res) => {
     }
 };
 
-// Eliminar un material con manejo de transacción
+// Eliminar un material
 exports.eliminarMaterial = async (req, res) => {
     try {
         const material = await Material.findById(req.params.id);
 
         if (!material) {
-            throw new Error("Material no encontrado");
+            return res.status(404).json({ message: "Material no encontrado" });
         }
 
         await Material.findByIdAndDelete(req.params.id);
-
         logger.info(`Material eliminado exitosamente: ${material.nombre}`);
-        res.json({ message: "Material eliminado correctamente" });
+        res.status(200).json({ message: "Material eliminado correctamente" });
     } catch (error) {
         logger.error(`Error al eliminar material: ${error.stack}`);
         res.status(500).json({ error: error.message });
     }
 };
-

@@ -37,38 +37,40 @@ export class MaterialEditarComponent implements OnInit {
     precio: 0, // Campo para el precio
   };
 
-  datos: any
-
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private stockService: StockService,
     private dataTransfer: DataTransferService
   ) { }
 
   ngOnInit(): void {
-    // Accedemos a los parámetros de matrix
-    // this.route.params.subscribe(params => {
-    //   this.material.id = params['_id'] || '';
-    //   this.material.nombre = params['nombre'] || '';
-    //   this.material.codigo = params['codigo'] || '';
-    //   this.material.cantidad = +params['cantidad'] || 0;
-    //   this.material.unidadMedida = params['unidadMedida'] || '';
-    //   this.material.precio = +params['precio'] || 0;
-    // });
-    this.datos = this.dataTransfer.getData();
-    this.material = this.datos;
-
-    console.log('Material cargado:', this.material);
+    // Intentar obtener los datos a través de DataTransferService
+    const datos = this.dataTransfer.getData();
+    
+    // Asegurarse de que los datos estén disponibles antes de asignarlos
+    if (datos && datos._id) {
+      this.material = { ...datos }; // Usar spread operator para evitar referencia directa
+      console.log('Material cargado:', this.material);
+    } else {
+      console.error('No se pudo cargar el material');
+    }
   }
 
-  editarMaterial() {    
-    this.stockService.updateMaterial(this.material._id, this.material).subscribe({
-      next: response => console.log('Material actualizado correctamente', response),
-      error: error => {
-        console.error('Error al editar el material', error);
-        alert('Ocurrió un error al actualizar el material. Por favor, revisa los datos y vuelve a intentarlo.');
-      }
-    });  
+  editarMaterial(): void {
+    if (this.material._id) {
+      this.stockService.updateMaterial(this.material._id, this.material).subscribe({
+        next: (response) => {
+          console.log('Material actualizado correctamente', response);
+          // Redirigir a la lista de materiales después de la actualización (o cualquier otra acción)
+          this.router.navigate(['/materiales']);
+        },
+        error: (error) => {
+          console.error('Error al editar el material', error);
+          alert('Ocurrió un error al actualizar el material. Por favor, revisa los datos y vuelve a intentarlo.');
+        },
+      });
+    } else {
+      console.error('No se encontró un ID para el material');
+    }
   }
 }

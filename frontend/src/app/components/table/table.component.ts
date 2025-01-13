@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, EventEmitter, Output  } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { TableColumn } from '../../models/table-column';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   standalone: true,
@@ -23,15 +25,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   
   tableColumns: TableColumn[] = [];
   @Output() editRow = new EventEmitter<any>();
+  @Output() deleteRow = new EventEmitter<any>();
 
   @Input() set data(data: any[]) {
     this.dataSource.data = data;
   }
-
-  // @Input() set columns(columns: TableColumn[]) {
-  //   this.tableColumns = columns;
-  //   this.displayedColumns = this.tableColumns.map(col => col.def);
-  // }
 
   @Input() set columns(columns: TableColumn[]) {
     this.tableColumns = columns;
@@ -44,13 +42,15 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;  // Agregar el ViewChild para MatSort
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private dialog: MatDialog) { } // Inyectar MatDialog
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;  // Asignar MatSort al dataSource
+    this.dataSource.sort = this.sort;
   }
 
   isActionColumn(column: TableColumn, row: any): boolean {
@@ -85,5 +85,18 @@ export class TableComponent implements OnInit, AfterViewInit {
   onEdit(row: any): void {
     this.editRow.emit(row);
   }
-  
+
+  onDelete(row: any): void {
+    // Abre el diálogo de confirmación
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { name: 'eliminar' } // Pasar datos si es necesario
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRow.emit(row); // Emitir el evento para eliminar
+      }
+    });
+  }
 }

@@ -43,7 +43,18 @@ export class MaterialCompuestoEditarComponent implements OnInit {
     // Obtén los datos transferidos
     this.datos = this.dataTransfer.getData();
 
-    console.log('DATOS OBTENIDOS: ', this.datos);
+    if (!this.datos || !this.datos.materialesUsados) {
+      console.error('Datos no disponibles o incompletos');
+      this.datos = {
+        nombre: '',
+        codigo: '',
+        unidadMedida: '',
+        cantidad: 0,
+        materialesUsados: [],
+      };
+    }
+
+    console.log('DATOS OBTENIDOS:', this.datos);
 
     // Inicializa el formulario usando los datos obtenidos
     this.materialCompuestoForm = this.fb.group({
@@ -54,9 +65,12 @@ export class MaterialCompuestoEditarComponent implements OnInit {
       materialesUsados: this.fb.array(
         this.datos.materialesUsados.map((materialUsado: any) =>
           this.fb.group({
-            nombre: [materialUsado.material.nombre], // Cambiado a 'nombre'
-            cantidad: [materialUsado.cantidad, [Validators.required, Validators.min(0)]],
-            unidadMedida: [materialUsado.material.unidadMedida], // Solo lectura
+            nombre: [materialUsado.material?.nombre || '', Validators.required],
+            cantidad: [materialUsado.cantidad || 0, [Validators.required, Validators.min(0)]],
+            unidadMedida: [
+              materialUsado.material?.unidadMedida || '',
+              Validators.required,
+            ],
           })
         )
       ),
@@ -68,6 +82,17 @@ export class MaterialCompuestoEditarComponent implements OnInit {
     return this.materialCompuestoForm.get('materialesUsados') as FormArray;
   }
 
+  // Añade un material al array
+  agregarMaterial(): void {
+    this.materialesUsadosArray.push(
+      this.fb.group({
+        nombre: ['', Validators.required],
+        cantidad: [0, [Validators.required, Validators.min(0)]],
+        unidadMedida: ['', Validators.required],
+      })
+    );
+  }
+
   // Elimina un material del array
   eliminarMaterial(index: number): void {
     this.materialesUsadosArray.removeAt(index);
@@ -75,7 +100,15 @@ export class MaterialCompuestoEditarComponent implements OnInit {
 
   // Envía los datos editados al backend
   guardarMaterialCompuesto(): void {
+    if (this.materialCompuestoForm.invalid) {
+      console.error('Formulario inválido');
+      alert('Por favor, corrige los errores antes de guardar.');
+      return;
+    }
+
     console.log('Material Compuesto Editado:', this.materialCompuestoForm.value);
-    // Aquí puedes enviar los datos al backend
+
+    // Aquí puedes implementar la lógica para enviar los datos al backend
+    // Por ejemplo, usando un servicio HTTP
   }
 }

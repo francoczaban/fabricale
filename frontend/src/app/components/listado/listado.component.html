@@ -1,11 +1,8 @@
-<h3 style="place-self: center;">Tabla Materiales</h3>
 <app-table class="table" [data]="dataSourceMateriales" [columns]="columnasMateriales"
-    (editRow)="editarMaterial($event)"></app-table>
+  (editRow)="editarMaterial($event)" (deleteRow)="deleteMaterial($event)"></app-table>
 
-<h3 style="place-self: center;">Tabla Materiales Compuestos</h3>
 <app-table class="table" [data]="dataSourceMaterialesCompuestos" [columns]="columnasMaterialesCompuestos"
-    (editRow)="editarMaterialCompuesto($event)"></app-table>
+  (editRow)="editarMaterialCompuesto($event)" (deleteRow)="deleteMaterialCompuesto($event)"></app-table>
 
-<h3 style="place-self: center;">Tabla Productos</h3>
 <app-table class="table" [data]="dataSourceProductos" [columns]="columnasProductos"
-    (editRow)="editarProducto($event)"></app-table>
+  (editRow)="editarProducto($event)" (deleteRow)="deleteProducto($event)"></app-table>
