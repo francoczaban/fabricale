@@ -1,0 +1,44 @@
+.materialesform {
+  max-width: 900px;
+  margin: 10vh auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.materialesform h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.container {
+  display: flex;
+  place-content: space-between;
+}
+
+.col1 {
+  max-width: 48.85%;
+}
+
+.col2 {
+  max-width: 48.85%;
+}

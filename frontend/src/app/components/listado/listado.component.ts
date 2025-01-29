@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
 import { DataTransferService } from '../../services/data-transfer.service';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
 @Component({
   standalone: true,
   selector: 'app-listado',
@@ -26,6 +24,8 @@ export class ListadoComponent implements OnInit {
   dataSourceMateriales: any[] = [];
   dataSourceMaterialesCompuestos: any[] = [];
   dataSourceProductos: any[] = [];
+  contador: number = 0;
+  arrayNotificaciones: any[] = [];
 
   constructor(private stockService: StockService, private router: Router, private dataTransfer: DataTransferService) { }
 
@@ -34,6 +34,17 @@ export class ListadoComponent implements OnInit {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
     this.cargarProductos();
+
+  }
+
+  checkStock(array: any[]) {
+    array.forEach(element => {
+      if (element.cantidad <= element.alertaStock) {
+        this.contador++;
+        this.arrayNotificaciones.push(element);
+      }
+    });
+    this.dataTransfer.sendData(this.contador, this.arrayNotificaciones)  
   }
 
   editarMaterial(material: any): void {
@@ -57,14 +68,16 @@ export class ListadoComponent implements OnInit {
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Unidad de Medida', def: 'unidadMedida', dataKey: 'unidadMedida' },
-      { label: 'Costo', def: 'precio', dataKey: 'precio' }
+      { label: 'Costo', def: 'precio', dataKey: 'precio' },
+      { label: 'Alerta Stock', def: 'alertaStock', dataKey: 'alertaStock' }
     ];
 
     this.columnasMaterialesCompuestos = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
-      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' } // Detalles de materiales usados
+      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' }, // Detalles de materiales usados
+      { label: 'Alerta Stock', def: 'alertaStock', dataKey: 'alertaStock' }
     ];
 
     this.columnasProductos = [
@@ -72,7 +85,8 @@ export class ListadoComponent implements OnInit {
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
-      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' } // Detalles de materiales compuestos usados
+      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' }, // Detalles de materiales compuestos usados
+      { label: 'Alerta Stock', def: 'alertaStock', dataKey: 'alertaStock' }
     ];
   }
 
@@ -80,6 +94,7 @@ export class ListadoComponent implements OnInit {
     this.stockService.getMateriales().subscribe({
       next: (data) => {
         this.dataSourceMateriales = data;
+        this.checkStock(this.dataSourceMateriales);
       },
       error: (error) => {
         console.error('Error al obtener los materiales:', error);
@@ -91,6 +106,7 @@ export class ListadoComponent implements OnInit {
     this.stockService.getMaterialesCompuestos().subscribe({
       next: (data) => {
         this.dataSourceMaterialesCompuestos = data;
+        this.checkStock(this.dataSourceMaterialesCompuestos);
       },
       error: (error) => {
         console.error('Error al obtener los materiales compuestos:', error);
@@ -102,6 +118,7 @@ export class ListadoComponent implements OnInit {
     this.stockService.getProductos().subscribe({
       next: (data) => {
         this.dataSourceProductos = data;
+        this.checkStock(this.dataSourceProductos);
       },
       error: (error) => {
         console.error('Error al obtener los productos:', error);
@@ -111,7 +128,7 @@ export class ListadoComponent implements OnInit {
 
   deleteMaterial(material: any): void {
     this.stockService.deleteMaterial(material._id).subscribe({
-      next: () => {        
+      next: () => {
         this.cargarMateriales(); // Recargar la lista de materiales después de la eliminación
       },
       error: (err) => {
@@ -120,7 +137,7 @@ export class ListadoComponent implements OnInit {
       }
     });
   }
-  
+
   deleteMaterialCompuesto(materialCompuesto: any): void {
     this.stockService.deleteMaterialCompuesto(materialCompuesto._id).subscribe({
       next: () => {
@@ -133,7 +150,7 @@ export class ListadoComponent implements OnInit {
       }
     });
   }
-  
+
   deleteProducto(producto: any): void {
     this.stockService.deleteProducto(producto._id).subscribe({
       next: () => {
@@ -146,5 +163,5 @@ export class ListadoComponent implements OnInit {
       }
     });
   }
-  
+
 }

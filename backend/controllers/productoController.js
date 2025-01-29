@@ -3,11 +3,12 @@ const Producto = require("../models/Producto");
 const Material = require("../models/Material");
 const MaterialCompuesto = require("../models/MaterialCompuesto");
 const logger = require("../utils/logger");
+const { convertirUnidades } = require("../utils/conversorUnidades");
 
 // Crear un nuevo producto con manejo de transacción
 exports.crearProducto = async (req, res) => {
     try {
-        const { nombre, codigo, cantidad, unidadMedida, materialesUsados, materialesCompuestosUsados } = req.body;
+        const { nombre, codigo, cantidad, unidadMedida, alertaStock, materialesUsados, materialesCompuestosUsados } = req.body;
 
         logger.info(`Intentando crear producto: ${nombre}, código: ${codigo}`);
 
@@ -53,6 +54,7 @@ exports.crearProducto = async (req, res) => {
             codigo,
             cantidad,
             unidadMedida,
+            alertaStock,
             materialesUsados,
             materialesCompuestosUsados,
         });

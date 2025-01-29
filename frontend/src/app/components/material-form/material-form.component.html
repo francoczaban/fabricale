@@ -1,46 +1,60 @@
-<form class="materialesform" (ngSubmit)="addMaterial()" style="place-self: center;">
-  <h3 style="text-align: center;">Crear Material</h3>
-  <div>
-    <div>
-      <mat-form-field class="example-full-width" style="width: 420px;">
-        <mat-label>Nombre:</mat-label>
-        <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre" required>
+<form class="materialesform" (ngSubmit)="addMaterial()">
+  <h3>Crear Material</h3>
+  <div class="container">
+    <div class="col1">
+      <!-- Campo Nombre -->
+      <mat-form-field class="full-width">
+        <mat-label>Nombre</mat-label>
+        <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre"
+          placeholder="Ingrese el nombre del material" required>
+      </mat-form-field>
+
+      <!-- Campo Código -->
+      <mat-form-field class="full-width">
+        <mat-label>Código</mat-label>
+        <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo"
+          placeholder="Ingrese el código del material" required>
+      </mat-form-field>
+
+      <!-- Campo Cantidad -->
+      <mat-form-field class="full-width">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad"
+          placeholder="Ingrese la cantidad" required>
+      </mat-form-field>
+
+    </div>
+
+    <div class="col2">
+      <!-- Campo Unidad de Medida -->
+      <mat-form-field class="full-width">
+        <mat-label>Unidad de Medida</mat-label>
+        <mat-select [(ngModel)]="material.unidadMedida" name="unidadMedida" required>
+          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+            {{ unidad }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Campo Precio -->
+      <mat-form-field class="full-width">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio"
+          placeholder="Ingrese el precio del material">
+      </mat-form-field>
+
+      <!-- Campo StockAlerta -->
+      <mat-form-field class="full-width">
+        <mat-label>Alerta Stock</mat-label>
+        <input matInput type="number" id="alertaStock" name="alertaStock" [(ngModel)]="material.alertaStock"
+          placeholder="Alerta de poco stock">
       </mat-form-field>
     </div>
-    <div>
-      <mat-form-field class="example-full-width" style="width: 420px;">
-        <mat-label>Código:</mat-label>
-        <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo" required>
-      </mat-form-field>
-    </div>
+
   </div>
 
-  <div>
-    <mat-form-field class="example-full-width" style="width: 420px;">
-      <mat-label>Cantidad:</mat-label>
-      <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad" required>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width" style="width: 420px;">
-      <mat-label>Unidad de Medida:</mat-label>
-      <mat-select [(ngModel)]="material.unidadMedida" name="unidadMedida" required>
-        <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-          {{ unidad }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <mat-form-field class="example-full-width" style="width: 420px;">
-      <mat-label>Precio:</mat-label>
-      <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio" placeholder="0">
-    </mat-form-field>
-  </div>
-
-  <div>
-    <button mat-flat-button color="primary" style="width: 420px;">Guardar Material</button>
-  </div>
+  <!-- Botón Guardar -->
+  <button mat-flat-button color="primary" class="submit-button">
+    Guardar Material
+  </button>
 </form>

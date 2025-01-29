@@ -1,0 +1,12 @@
+<!-- <div class="demo-section">
+    <mat-icon matBadge="{{this.datosRecibidos}}" ></mat-icon>
+    <img src="assets/img/icon-bell4.png" alt="Bell Icon" >
+    <button mat-button (click)="openDialog()">Open dialog</button>
+</div> -->
+
+<div class="demo-section">
+    <button mat-button (click)="openDialog()">
+      <mat-icon matBadge="{{ datosRecibidos }}" matBadgeColor="warn">notifications</mat-icon>
+      <img src="assets/img/icon-bell4.png" alt="Bell Icon">
+    </button>
+  </div>

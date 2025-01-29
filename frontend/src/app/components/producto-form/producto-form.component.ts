@@ -31,6 +31,7 @@ export class ProductoFormComponent implements OnInit {
       codigo: ['', Validators.required],
       cantidad: [0, [Validators.required, Validators.min(1)]],
       unidadMedida: ['', Validators.required],
+      alertaStock: [0, [Validators.required, Validators.min(1)]],
       materialesUsados: this.fb.array([]),
       materialesCompuestosUsados: this.fb.array([]),
     });

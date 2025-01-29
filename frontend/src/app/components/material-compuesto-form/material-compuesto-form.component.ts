@@ -33,6 +33,7 @@ export class MaterialCompuestoFormComponent implements OnInit {
       descripcion: [''],
       unidadMedida: [''],
       cantidad: [''],
+      alertaStock: [''],
       materialesUsados: this.fb.array([])
     });
   }

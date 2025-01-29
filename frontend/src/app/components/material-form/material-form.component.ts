@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common'
   standalone: true,
   selector: 'app-material-form',
   templateUrl: './material-form.component.html',
+  styleUrl: './material-form.component.css',
   imports: [CommonModule, FormsModule, MatInputModule, MatFormFieldModule,
     MatIconModule, MatDividerModule, MatButtonModule, MatSelectModule],
 })
@@ -24,7 +25,8 @@ export class MaterialFormComponent {
     codigo: '',
     cantidad: 0,
     unidadMedida: '',
-    precio: 0 // Campo para el precio
+    precio: 0, // Campo para el precio
+    alertaStock: 0
   };
 
   constructor(private stockService: StockService) { }
@@ -44,7 +46,8 @@ export class MaterialFormComponent {
       codigo: '',
       cantidad: 0,
       unidadMedida: '',
-      precio: 0 // Resetea el precio a 0
+      precio: 0, // Resetea el precio a 0
+      alertaStock: 0
     };
   }
 }

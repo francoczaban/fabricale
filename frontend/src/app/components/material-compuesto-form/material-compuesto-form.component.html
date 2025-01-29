@@ -35,6 +35,12 @@
         <mat-label>Cantidad Total</mat-label>
         <input matInput type="number" id="cantidad" formControlName="cantidad">
       </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Alerta Stock</mat-label>
+        <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock" 
+          placeholder="Alerta de poco stock">
+      </mat-form-field>
       
       <!-- Materiales Usados -->
       <div formArrayName="materialesUsados">
@@ -61,6 +67,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+          
+          
 
           <button type="button" mat-fab aria-label="Eliminar Material" (click)="eliminarMaterial(i)">
             <mat-icon>delete</mat-icon>

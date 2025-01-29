@@ -172,3 +172,21 @@
     at model.Query.exec (C:\Users\Ale\Desktop\Mauro\fabricale-main\backend\node_modules\mongoose\lib\query.js:4412:80)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
     at async exports.actualizarMaterial (C:\Users\Ale\Desktop\Mauro\fabricale-main\backend\controllers\materialController.js:44:26)
+2025-01-28 23:58:53 error: Error al crear producto: ReferenceError: convertirUnidades is not defined
+    at exports.crearProducto (D:\FRANCO\quimica\backend\controllers\productoController.js:21:39)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-01-29 00:01:19 error: Error al crear producto: ValidationError: Producto validation failed: alertaStock: Path `alertaStock` is required.
+    at Document.invalidate (D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3318:32)
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3079:17
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\schemaType.js:1388:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+2025-01-29 00:03:32 error: Error al crear producto: ValidationError: Producto validation failed: alertaStock: Path `alertaStock` is required.
+    at Document.invalidate (D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3318:32)
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3079:17
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\schemaType.js:1388:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+2025-01-29 00:04:41 error: Error al crear producto: ValidationError: Producto validation failed: alertaStock: Path `alertaStock` is required.
+    at Document.invalidate (D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3318:32)
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\document.js:3079:17
+    at D:\FRANCO\quimica\backend\node_modules\mongoose\lib\schemaType.js:1388:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)

@@ -32,6 +32,13 @@
     </mat-select>
   </mat-form-field>
 
+  <!-- Campo StockAlerta -->
+  <mat-form-field class="full-width">
+    <mat-label>Alerta Stock</mat-label>
+    <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock"
+      placeholder="Alerta de poco stock">
+  </mat-form-field>
+
   <div formArrayName="materialesUsados">
     <h5 style="text-align: center;">Materiales</h5>
     <div *ngFor="let material of materialesUsados.controls; let i = index" [formGroupName]="i">

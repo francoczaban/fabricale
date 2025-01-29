@@ -2,9 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1976d2;
-  padding: 10px 20px;
+  background-color: #5d6063;
+  padding: 20px 20px;
   color: white;
+  opacity: 80%;
 }
 
 .navbar-links {
@@ -19,7 +20,7 @@
   text-decoration: none;
   color: white;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 
