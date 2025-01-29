@@ -43,7 +43,9 @@ export class NotificationsComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(NotificationsDialogComponent, {
-      data: { notifications: this.array }
+      height: '500px',
+
+      data: { notifications: this.array },
     });
 
     dialogRef.afterClosed().subscribe(result => {

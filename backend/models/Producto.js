@@ -6,6 +6,7 @@ const productoSchema = new mongoose.Schema({
     cantidad: { type: Number, required: true },
     unidadMedida: { type: String, required: true },
     alertaStock: { type: Number, required: false },
+    tipo: { type: String, default: 'Producto' },
     materialesUsados: [{
         material: { type: mongoose.Schema.Types.ObjectId, ref: "Material", required: true },
         cantidad: { type: Number, required: true }

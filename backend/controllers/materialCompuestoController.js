@@ -5,8 +5,8 @@ const { convertirUnidades } = require("../utils/conversorUnidades");
 const logger = require("../utils/logger");
 
 // Crear un nuevo material compuesto 
-exports.crearMaterialCompuesto = async (req, res) => {
-    const { nombre, codigo, cantidad, unidadMedida, materialesUsados } = req.body;
+exports.crearMaterialCompuesto = async(req, res) => {
+    const { nombre, codigo, cantidad, unidadMedida, materialesUsados, alertaStock } = req.body;
 
     try {
         for (const item of materialesUsados) {
@@ -33,7 +33,8 @@ exports.crearMaterialCompuesto = async (req, res) => {
             codigo,
             cantidad,
             unidadMedida,
-            materialesUsados
+            materialesUsados,
+            alertaStock
         });
 
         await materialCompuesto.save();
@@ -47,7 +48,7 @@ exports.crearMaterialCompuesto = async (req, res) => {
 };
 
 // Traer todos los materiales compuestos
-exports.obtenerMaterialesCompuestos = async (req, res) => {
+exports.obtenerMaterialesCompuestos = async(req, res) => {
     try {
         const materialesCompuestos = await MaterialCompuesto.find().populate("materialesUsados.material");
         res.status(200).json(materialesCompuestos);
@@ -57,7 +58,7 @@ exports.obtenerMaterialesCompuestos = async (req, res) => {
 };
 
 // Editar un material compuesto con transacción
-exports.editarMaterialCompuesto = async (req, res) => {
+exports.editarMaterialCompuesto = async(req, res) => {
     const { id } = req.params;
     const { nombre, codigo, cantidad, unidadMedida, materialesUsados } = req.body;
 
@@ -115,7 +116,7 @@ exports.editarMaterialCompuesto = async (req, res) => {
 };
 
 // Eliminar un material compuesto con transacción
-exports.eliminarMaterialCompuesto = async (req, res) => {
+exports.eliminarMaterialCompuesto = async(req, res) => {
     const { id } = req.params;
 
     try {
