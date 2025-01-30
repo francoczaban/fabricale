@@ -9,8 +9,8 @@ const materialCompuestoSchema = new mongoose.Schema({
     tipo: { type: String, default: 'Material Compuesto' },
     materialesUsados: [{
         material: { type: mongoose.Schema.Types.ObjectId, ref: "Material", required: true },
-        cantidad: { type: Number, required: true }
-
+        cantidad: { type: Number, required: true },
+        unidadMedida: { type: String, required: true }
     }]
 });
 

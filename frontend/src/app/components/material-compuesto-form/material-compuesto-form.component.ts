@@ -86,7 +86,7 @@ export class MaterialCompuestoFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.materialCompuestoForm.value)
+    console.log('MATERIAL COMPUESTO: ',this.materialCompuestoForm.value)
     if (this.materialCompuestoForm.valid) {
       this.stockService.addMaterialCompuesto(this.materialCompuestoForm.value).subscribe({
         next: response => console.log('Material compuesto guardado exitosamente', response),

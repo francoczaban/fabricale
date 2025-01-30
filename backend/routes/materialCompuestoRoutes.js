@@ -5,9 +5,7 @@ const materialCompuestoController = require("../controllers/materialCompuestoCon
 
 router.get("/", materialCompuestoController.obtenerMaterialesCompuestos);
 router.post("/", materialCompuestoController.crearMaterialCompuesto);
+router.put("/:id", materialCompuestoController.editarMaterialCompuesto);
+router.delete("/:id", materialCompuestoController.eliminarMaterialCompuesto);
 
 module.exports = router;
-
-
-
-

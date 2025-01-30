@@ -3,10 +3,18 @@ const Material = require("../models/Material");
 const MaterialCompuesto = require("../models/MaterialCompuesto");
 const { convertirUnidades } = require("../utils/conversorUnidades");
 const logger = require("../utils/logger");
+const { Console } = require("winston/lib/winston/transports");
 
-// Crear un nuevo material compuesto 
+// Crear un nuevo material compuesto
 exports.crearMaterialCompuesto = async(req, res) => {
-    const { nombre, codigo, cantidad, unidadMedida, materialesUsados, alertaStock } = req.body;
+    const {
+        nombre,
+        codigo,
+        cantidad,
+        unidadMedida,
+        materialesUsados,
+        alertaStock,
+    } = req.body;
 
     try {
         for (const item of materialesUsados) {
@@ -16,7 +24,11 @@ exports.crearMaterialCompuesto = async(req, res) => {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
 
-            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(
+                item.cantidad,
+                item.unidadMedida,
+                material.unidadMedida
+            );
 
             if (material.cantidad < cantidadUsadaEnInventarioUnidad) {
                 throw new Error(
@@ -34,7 +46,7 @@ exports.crearMaterialCompuesto = async(req, res) => {
             cantidad,
             unidadMedida,
             materialesUsados,
-            alertaStock
+            alertaStock,
         });
 
         await materialCompuesto.save();
@@ -50,7 +62,9 @@ exports.crearMaterialCompuesto = async(req, res) => {
 // Traer todos los materiales compuestos
 exports.obtenerMaterialesCompuestos = async(req, res) => {
     try {
-        const materialesCompuestos = await MaterialCompuesto.find().populate("materialesUsados.material");
+        const materialesCompuestos = await MaterialCompuesto.find().populate(
+            "materialesUsados.material"
+        );
         res.status(200).json(materialesCompuestos);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -63,7 +77,9 @@ exports.editarMaterialCompuesto = async(req, res) => {
     const { nombre, codigo, cantidad, unidadMedida, materialesUsados } = req.body;
 
     try {
-        const materialCompuesto = await MaterialCompuesto.findById(id).populate("materialesUsados.material");
+        const materialCompuesto = await MaterialCompuesto.findById(id).populate(
+            "materialesUsados.material"
+        );
 
         if (!materialCompuesto) {
             throw new Error(`Material compuesto con ID ${id} no encontrado`);
@@ -73,7 +89,11 @@ exports.editarMaterialCompuesto = async(req, res) => {
         for (const item of materialCompuesto.materialesUsados) {
             const material = await Material.findById(item.material._id);
 
-            const cantidadRevertida = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            const cantidadRevertida = convertirUnidades(
+                item.cantidad,
+                item.unidadMedida,
+                material.unidadMedida
+            );
             material.cantidad += cantidadRevertida;
             await material.save();
         }
@@ -86,7 +106,11 @@ exports.editarMaterialCompuesto = async(req, res) => {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
 
-            const cantidadUsada = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            const cantidadUsada = convertirUnidades(
+                item.cantidad,
+                item.unidadMedida,
+                material.unidadMedida
+            );
 
             if (material.cantidad < cantidadUsada) {
                 throw new Error(
@@ -102,8 +126,10 @@ exports.editarMaterialCompuesto = async(req, res) => {
         materialCompuesto.nombre = nombre || materialCompuesto.nombre;
         materialCompuesto.codigo = codigo || materialCompuesto.codigo;
         materialCompuesto.cantidad = cantidad || materialCompuesto.cantidad;
-        materialCompuesto.unidadMedida = unidadMedida || materialCompuesto.unidadMedida;
-        materialCompuesto.materialesUsados = materialesUsados || materialCompuesto.materialesUsados;
+        materialCompuesto.unidadMedida =
+            unidadMedida || materialCompuesto.unidadMedida;
+        materialCompuesto.materialesUsados =
+            materialesUsados || materialCompuesto.materialesUsados;
 
         await materialCompuesto.save();
 
@@ -117,10 +143,13 @@ exports.editarMaterialCompuesto = async(req, res) => {
 
 // Eliminar un material compuesto con transacción
 exports.eliminarMaterialCompuesto = async(req, res) => {
+
     const { id } = req.params;
 
     try {
-        const materialCompuesto = await MaterialCompuesto.findById(id).populate("materialesUsados.material");
+        const materialCompuesto = await MaterialCompuesto.findById(id).populate(
+            "materialesUsados.material"
+        );
 
         if (!materialCompuesto) {
             throw new Error(`Material compuesto con ID ${id} no encontrado`);
@@ -131,11 +160,18 @@ exports.eliminarMaterialCompuesto = async(req, res) => {
             const material = await Material.findById(item.material._id);
 
             if (material) {
-                const cantidadRevertida = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+                const cantidadRevertida = convertirUnidades(
+                    item.cantidad,
+                    item.unidadMedida,
+                    material.unidadMedida
+                );
+
                 material.cantidad += cantidadRevertida;
                 await material.save();
             } else {
-                throw new Error(`Material asociado con ID ${item.material._id} no encontrado`);
+                throw new Error(
+                    `Material asociado con ID ${item.material._id} no encontrado`
+                );
             }
         }
 
@@ -143,7 +179,9 @@ exports.eliminarMaterialCompuesto = async(req, res) => {
         await MaterialCompuesto.findByIdAndDelete(id);
 
         logger.info(`Material Compuesto eliminado exitosamente: ${id}`);
-        res.status(200).json({ message: "Material compuesto eliminado exitosamente" });
+        res
+            .status(200)
+            .json({ message: "Material compuesto eliminado exitosamente" });
     } catch (error) {
         logger.error(`Error al eliminar material compuesto: ${error.stack}`);
         res.status(500).json({ error: error.message });
