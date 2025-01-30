@@ -7,14 +7,7 @@ const { Console } = require("winston/lib/winston/transports");
 
 // Crear un nuevo material compuesto
 exports.crearMaterialCompuesto = async(req, res) => {
-    const {
-        nombre,
-        codigo,
-        cantidad,
-        unidadMedida,
-        materialesUsados,
-        alertaStock,
-    } = req.body;
+    const { nombre, codigo, cantidad, unidadMedida, materialesUsados, alertaStock } = req.body;
 
     try {
         for (const item of materialesUsados) {
@@ -24,11 +17,7 @@ exports.crearMaterialCompuesto = async(req, res) => {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
 
-            const cantidadUsadaEnInventarioUnidad = convertirUnidades(
-                item.cantidad,
-                item.unidadMedida,
-                material.unidadMedida
-            );
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
 
             if (material.cantidad < cantidadUsadaEnInventarioUnidad) {
                 throw new Error(
