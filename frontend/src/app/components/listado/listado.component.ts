@@ -62,6 +62,12 @@ export class ListadoComponent implements OnInit {
     this.router.navigate(['/editar-producto']);
   }
 
+
+  agregarMaterial(material: any): void {
+    this.dataTransfer.setData(material);
+    this.router.navigate(['/agregar-cantidades']);
+  }
+
   setTableColumns() {
     this.columnasMateriales = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },

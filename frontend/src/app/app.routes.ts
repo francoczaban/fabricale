@@ -11,6 +11,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MaterialEditarComponent } from './components/material-editar/material-editar.component';
 import { MaterialCompuestoEditarComponent } from './components/material-compuesto-editar/material-compuesto-editar.component';
 import { ProductoEditarComponent } from './components/producto-editar/producto-editar.component';
+import { AgregarCantidadesComponent } from './components/agregar-cantidades/agregar-cantidades.component';
 
 export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'editar-material', component: MaterialEditarComponent, canActivate: [authGuard] },
     { path: 'editar-materialCompuesto', component: MaterialCompuestoEditarComponent, canActivate: [authGuard] },
     { path: 'editar-producto', component: ProductoEditarComponent, canActivate: [authGuard] },
+    { path: 'agregar-cantidades', component: AgregarCantidadesComponent, canActivate: [authGuard] },
     { path: 'proveedores', component: ProveedorFormComponent, canActivate: [authGuard] }, // Nueva ruta para proveedores
     { path: '', redirectTo: '/listado', pathMatch: 'full' }, // Ruta por defecto
     { path: '**', redirectTo: '/listado', pathMatch: 'full' } // Ruta wildcard para manejar rutas no encontradas

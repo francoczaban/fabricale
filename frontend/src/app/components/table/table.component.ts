@@ -26,6 +26,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   tableColumns: TableColumn[] = [];
   @Output() editRow = new EventEmitter<any>();
   @Output() deleteRow = new EventEmitter<any>();
+  @Output() addMaterialRow = new EventEmitter<any>();
+
 
   @Input() set data(data: any[]) {
     this.dataSource.data = data;
@@ -91,7 +93,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
       data: { name: 'eliminar' } // Pasar datos si es necesario
-    });
+    });    
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -99,4 +101,10 @@ export class TableComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  onAgregar(row: any): void {
+    this.addMaterialRow.emit(row);
+  }
+  
+
 }

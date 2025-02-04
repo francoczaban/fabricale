@@ -1,48 +1,51 @@
 <mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
 </mat-form-field>
 
 <div class="example-container mat-elevation-z8" *ngIf="dataSource">
-  <mat-table #table [dataSource]="dataSource" matSort>
-    <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
-          <ul>
-            <li *ngFor="let item of row[column.dataKey]">
-              <span *ngIf="item.material">
+    <mat-table #table [dataSource]="dataSource" matSort>
+        <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
+                    <ul>
+                        <li *ngFor="let item of row[column.dataKey]">
+                            <span *ngIf="item.material">
                 {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }}
               </span>
-              <span *ngIf="item.materialCompuesto">
+                            <span *ngIf="item.materialCompuesto">
                 {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }}
               </span>
-            </li>
-          </ul>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-template #singleValue>
+                    {{ formatNumber(row[column.dataKey]) }}
+                </ng-template>
+            </mat-cell>
         </ng-container>
-        <ng-template #singleValue>
-          {{ formatNumber(row[column.dataKey]) }}
-        </ng-template>
-      </mat-cell>
-    </ng-container>
 
-    <!-- Columna para acciones -->
-    <ng-container matColumnDef="accion">
-      <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button mat-raised-button color="primary" (click)="onEdit(row)">
+        <!-- Columna para acciones -->
+        <ng-container matColumnDef="accion">
+            <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-raised-button color="primary" (click)="onEdit(row)">
           Editar
         </button>
-        <button mat-raised-button color="warn" (click)="onDelete(row)">
+                <button mat-raised-button color="warn" (click)="onDelete(row)">
           Eliminar
         </button>
-      </mat-cell>
-    </ng-container>
+                <button mat-raised-button color="warn" (click)="onAgregar(row)">
+          Agregar
+        </button>
+            </mat-cell>
+        </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
-  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-  </mat-paginator>
+    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
 </div>

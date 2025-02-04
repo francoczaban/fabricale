@@ -28,6 +28,10 @@ export class StockService {
     return this.http.delete(`${this.apiUrl}/materiales/${id}`);
   }
 
+  addCantidadMaterial(id: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/materiales/${id}`, data);
+  }
+
   getStockByMaterial(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/materiales/${id}/stock`);
   }

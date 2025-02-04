@@ -1,8 +1,5 @@
-<app-table class="table" [data]="dataSourceMateriales" [columns]="columnasMateriales"
-  (editRow)="editarMaterial($event)" (deleteRow)="deleteMaterial($event)"></app-table>
+<app-table class="table" [data]="dataSourceMateriales" [columns]="columnasMateriales" (editRow)="editarMaterial($event)" (deleteRow)="deleteMaterial($event)" (addMaterialRow)="agregarMaterial($event)"></app-table>
 
-<app-table class="table" [data]="dataSourceMaterialesCompuestos" [columns]="columnasMaterialesCompuestos"
-  (editRow)="editarMaterialCompuesto($event)" (deleteRow)="deleteMaterialCompuesto($event)"></app-table>
+<app-table class="table" [data]="dataSourceMaterialesCompuestos" [columns]="columnasMaterialesCompuestos" (editRow)="editarMaterialCompuesto($event)" (deleteRow)="deleteMaterialCompuesto($event)"></app-table>
 
-<app-table class="table" [data]="dataSourceProductos" [columns]="columnasProductos"
-  (editRow)="editarProducto($event)" (deleteRow)="deleteProducto($event)"></app-table>
+<app-table class="table" [data]="dataSourceProductos" [columns]="columnasProductos" (editRow)="editarProducto($event)" (deleteRow)="deleteProducto($event)"></app-table>
