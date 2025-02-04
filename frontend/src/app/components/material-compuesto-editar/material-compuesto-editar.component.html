@@ -1,59 +1,59 @@
 <form [formGroup]="materialCompuestoForm" (ngSubmit)="guardarMaterialCompuesto()">
-  <h3>Editar Material Compuesto</h3>
-  <div style="display: flex; flex-direction: column; gap: 16px;">
-    <!-- Nombre -->
-    <mat-form-field class="example-full-width">
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nombre" readonly />
-    </mat-form-field>
-
-    <!-- Código -->
-    <mat-form-field class="example-full-width">
-      <mat-label>Código</mat-label>
-      <input matInput formControlName="codigo" />
-    </mat-form-field>
-
-    <!-- Unidad de Medida -->
-    <mat-form-field class="example-full-width">
-      <mat-label>Unidad de Medida</mat-label>
-      <mat-select formControlName="unidadMedida">
-        <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-          {{ unidad }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- Cantidad Total -->
-    <mat-form-field class="example-full-width">
-      <mat-label>Cantidad Total</mat-label>
-      <input matInput type="number" formControlName="cantidad" />
-    </mat-form-field>
-
-    <!-- Materiales Usados -->
-    <h4>Materiales Usados</h4>
-    <div formArrayName="materialesUsados">
-      <div *ngFor="let material of materialesUsadosArray.controls; let i = index" [formGroupName]="i">
-        <mat-form-field>
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre"  />
+    <h3>Editar Material Compuesto</h3>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Nombre -->
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" />
         </mat-form-field>
-    
-        <mat-form-field>
-          <mat-label>Cantidad</mat-label>
-          <input matInput type="number" formControlName="cantidad" />
+
+        <!-- Código -->
+        <mat-form-field class="example-full-width">
+            <mat-label>Código</mat-label>
+            <input matInput formControlName="codigo" />
         </mat-form-field>
-    
-        <mat-form-field>
-          <mat-label>Unidad de Medida</mat-label>
-          <input matInput formControlName="unidadMedida"  />
+
+        <!-- Unidad de Medida -->
+        <mat-form-field class="example-full-width">
+            <mat-label>Unidad de Medida</mat-label>
+            <mat-select formControlName="unidadMedida" [(value)]="selected">
+                <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
+                    {{ unidad }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
-    
-        <button mat-icon-button color="warn" (click)="eliminarMaterial(i)">
+
+        <!-- Cantidad Total -->
+        <mat-form-field class="example-full-width">
+            <mat-label>Cantidad Total</mat-label>
+            <input matInput type="number" formControlName="cantidad" />
+        </mat-form-field>
+
+        <!-- Materiales Usados -->
+        <h4>Materiales Usados</h4>
+        <div formArrayName="materialesUsados">
+            <div *ngFor="let material of materialesUsadosArray.controls; let i = index" [formGroupName]="i">
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" formControlName="cantidad" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Unidad de Medida</mat-label>
+                    <input matInput formControlName="unidadMedida" />
+                </mat-form-field>
+
+                <button mat-icon-button color="warn" (click)="eliminarMaterial(i)">
           <mat-icon>delete</mat-icon>
         </button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <button mat-flat-button color="primary" type="submit">Guardar Cambios</button>
+    <button mat-flat-button color="primary" type="submit">Guardar Cambios</button>
 </form>

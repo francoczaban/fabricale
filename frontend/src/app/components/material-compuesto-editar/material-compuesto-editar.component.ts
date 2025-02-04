@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { DataTransferService } from '../../services/data-transfer.service';
+import { StockService } from '../../services/stock.service';
 
 @Component({
   standalone: true,
@@ -30,14 +31,13 @@ import { DataTransferService } from '../../services/data-transfer.service';
 })
 export class MaterialCompuestoEditarComponent implements OnInit {
   materialCompuestoForm!: FormGroup;
-  unidadesMedida = ['KG', 'GR', 'L', 'ML'];
+  unidadesMedida = ['KG', 'GR', 'LT', 'CC'];
   datos: any;
+  selected: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private dataTransfer: DataTransferService
-  ) {}
+
+  constructor(private route: ActivatedRoute,private fb: FormBuilder, private dataTransfer: DataTransferService,
+              private stockService: StockService) {}
 
   ngOnInit(): void {
     // Obtén los datos transferidos
@@ -53,8 +53,10 @@ export class MaterialCompuestoEditarComponent implements OnInit {
         materialesUsados: [],
       };
     }
-
+    this.selected = this.datos.unidadMedida;
+    console.log('selected: ',this.selected);
     console.log('DATOS OBTENIDOS:', this.datos);
+    console.log('id: ', this.datos.materialesUsados[0].material._id);
 
     // Inicializa el formulario usando los datos obtenidos
     this.materialCompuestoForm = this.fb.group({
@@ -68,13 +70,15 @@ export class MaterialCompuestoEditarComponent implements OnInit {
             nombre: [materialUsado.material?.nombre || '', Validators.required],
             cantidad: [materialUsado.cantidad || 0, [Validators.required, Validators.min(0)]],
             unidadMedida: [
-              materialUsado.material?.unidadMedida || '',
+              materialUsado.unidadMedida || '',
               Validators.required,
             ],
+            id: [materialUsado.material._id],
           })
         )
       ),
     });
+    console.log(this.materialCompuestoForm.value);
   }
 
   // Obtén la lista de materiales usados
@@ -103,12 +107,26 @@ export class MaterialCompuestoEditarComponent implements OnInit {
     if (this.materialCompuestoForm.invalid) {
       console.error('Formulario inválido');
       alert('Por favor, corrige los errores antes de guardar.');
-      return;
     }
+    console.log(   'datos.:ID: ' ,this.datos._id);
+    this.stockService.updateMaterialCompuesto(this.datos._id, this.materialCompuestoForm.value).subscribe({
+      next: (response) => {
+        console.log('Material Compuesto actualizado correctamente', response);
+        // // Redirigir a la lista de materiales después de la actualización (o cualquier otra acción)
+        // this.router.navigate(['/materiales']);
+      },
+      error: (error) => {
+        console.error('Error al editar el material compuesto', error);
+        alert('Ocurrió un error al actualizar el material compuesto. Por favor, revisa los datos y vuelve a intentarlo.');
+      },
+    });
 
     console.log('Material Compuesto Editado:', this.materialCompuestoForm.value);
+    console.log('DATOS: ',this.datos);
 
     // Aquí puedes implementar la lógica para enviar los datos al backend
     // Por ejemplo, usando un servicio HTTP
   }
+
+  
 }
