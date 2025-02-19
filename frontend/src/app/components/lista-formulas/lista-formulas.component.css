@@ -1,0 +1,13 @@
+.formula-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.example-card {
+    width: 300px;
+}
+
+.example-card-footer {
+    text-align: center;
+}

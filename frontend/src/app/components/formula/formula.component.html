@@ -1,5 +1,5 @@
-<form [formGroup]="productoForm" (ngSubmit)="onSubmit()" style="place-self: center;">
-    <h3 style="text-align: center;">Crear Producto</h3>
+<form [formGroup]="formulaForm" (ngSubmit)="onSubmit()" style="place-self: center;">
+    <h3 style="text-align: center;">Crear Formula</h3>
 
     <div>
         <mat-form-field class="example-full-width" style="width: 420px;">
@@ -8,19 +8,6 @@
         </mat-form-field>
     </div>
 
-    <div>
-        <mat-form-field class="example-full-width" style="width: 420px;">
-            <mat-label>Código</mat-label>
-            <input matInput id="codigo" formControlName="codigo" type="text">
-        </mat-form-field>
-    </div>
-
-    <div>
-        <mat-form-field class="example-full-width" style="width: 420px;">
-            <mat-label>Cantidad</mat-label>
-            <input matInput id="cantidad" formControlName="cantidad" type="number">
-        </mat-form-field>
-    </div>
 
     <!-- Campo Unidad de Medida -->
     <mat-form-field class="example-full-width" style="width: 420px;">
@@ -32,11 +19,14 @@
         </mat-select>
     </mat-form-field>
 
-    <!-- Campo StockAlerta -->
-    <mat-form-field class="full-width">
-        <mat-label>Alerta Stock</mat-label>
-        <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock" placeholder="Alerta de poco stock">
-    </mat-form-field>
+
+    <div>
+        <mat-form-field class="example-full-width" style="width: 420px;">
+            <mat-label>Descripción</mat-label>
+            <input matInput id="descripcion" formControlName="descripcion" type="text">
+        </mat-form-field>
+    </div>
+
 
     <div formArrayName="materialesUsados">
         <h5 style="text-align: center;">Materiales</h5>
@@ -71,14 +61,14 @@
             </mat-form-field>
 
             <button mat-fab type="button" (click)="eliminarMaterialUsado(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
+          <mat-icon>delete</mat-icon>
+        </button>
 
         </div>
 
         <br>
         <button mat-raised-button type="button" (click)="agregarMaterialUsado()" style="place-self: center;" style="width: 420px;">Agregar
-      Material</button>
+        Material</button>
 
     </div>
 
@@ -116,19 +106,19 @@
             </mat-form-field>
 
             <button type="button" mat-fab aria-label="" (click)="eliminarMaterialCompuestoUsado(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
+          <mat-icon>delete</mat-icon>
+        </button>
 
         </div>
         <br>
         <button type="button" mat-raised-button (click)="agregarMaterialCompuestoUsado()" style="place-self: center;" style="width: 420px;">Agregar
-      Material Compuesto</button>
+        Material Compuesto</button>
 
     </div>
 
     <br>
     <div>
-        <button mat-flat-button [disabled]="productoForm.invalid" style="place-self: center;" style="width: 420px;">Guardar Producto</button>
+        <button mat-flat-button [disabled]="formulaForm.invalid" style="place-self: center;" style="width: 420px;">Guardar Formula</button>
     </div>
 
 </form>

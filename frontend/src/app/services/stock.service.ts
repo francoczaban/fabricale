@@ -34,24 +34,9 @@ export class StockService {
 
   getStockByMaterial(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/materiales/${id}/stock`);
-  }
+  } 
 
-  // Métodos para materiales compuestos
-  // getMaterialesCompuestos(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/materiales-compuestos`);
-  // }
- 
-  // addMaterialCompuesto(data: any): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/materiales-compuestos`, data);
-  // }
-
-  // updateMaterialCompuesto(id: string, data: any): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/materiales-compuestos/${id}`, data);
-  // }
-
-  // deleteMaterialCompuesto(id: string): Observable<any> {
-  //   return this.http.delete(`${this.apiUrl}/materiales-compuestos/${id}`);
-  // }
+  // Métodos para materialesCompuestos
 
   addMaterialCompuesto(materialCompuesto: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/materiales-compuestos`, materialCompuesto);
@@ -69,22 +54,6 @@ export class StockService {
     return this.http.delete(`${this.apiUrl}/materiales-compuestos/${id}`);
   }
 
-  // Métodos para productos
-  // getProductos(): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/productos`);
-  // }
-
-  // addProducto(data: any): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/productos`, data);
-  // }
-
-  // updateProducto(id: string, data: any): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/productos/${id}`, data);
-  // }
-
-  // deleteProducto(id: string): Observable<any> {
-  //   return this.http.delete(`${this.apiUrl}/productos/${id}`);
-  // }
 
   // Métodos para productos
   getProductos(): Observable<any> {
@@ -102,5 +71,16 @@ export class StockService {
   deleteProducto(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/productos/${id}`);
 }
+
+// Métodos para formulas
+
+addFormula(data: any): Observable<any>{
+  return this.http.post(`${this.apiUrl}/formula`, data);
+}
+
+getFormulas(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/formula`);
+}
+
 
 }

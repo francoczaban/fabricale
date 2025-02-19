@@ -1,0 +1,61 @@
+<form [formGroup]="productoForm">
+    <h3>Editar Material Compuesto</h3>
+
+    <div class="formula-cards-container">
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>{{productoForm.value.nombre}}</mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+
+
+                <p><strong>Unidad de medida:</strong> {{ productoForm.value.unidadMedida }}</p>
+
+                <!-- Materiales Usados -->
+                <div *ngIf="productoForm.value.materialesUsados.length > 0">
+                    <h5>Materiales Usados</h5>
+                    <ul>
+                        <li *ngFor="let material of productoForm.value.materialesUsados">
+                            <strong>{{ material.nombre }}:</strong> {{ material.cantidad }} {{ material.unidadMedida }}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Materiales Compuestos Usados -->
+                <div *ngIf="productoForm.value.materialesCompuestosUsados.length > 0">
+                    <h5>Materiales Compuestos Usados</h5>
+                    <ul>
+                        <li *ngFor="let materialCompuesto of productoForm.value.materialesCompuestosUsados">
+                            <strong>{{ materialCompuesto.nombre }}:</strong> {{ materialCompuesto.cantidad }} {{ materialCompuesto.unidadMedida }}
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Cantidad:</mat-label>
+                    <input matInput id="cantidad" type="text" formControlName="cantidad">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Codigo:</mat-label>
+                    <input matInput id="codigo" type="text" name="codigo" formControlName="codigo">
+                </mat-form-field>
+
+                <!-- Campo StockAlerta -->
+                <mat-form-field class="full-width">
+                    <mat-label>Alerta Stock</mat-label>
+                    <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock" placeholder="Alerta de poco stock">
+                </mat-form-field>
+
+
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="crearProducto()">CREAR</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</form>

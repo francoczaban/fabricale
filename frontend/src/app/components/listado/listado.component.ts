@@ -20,10 +20,12 @@ export class ListadoComponent implements OnInit {
   productos: any[] = [];
   columnasMateriales: TableColumn[] = [];
   columnasMaterialesCompuestos: TableColumn[] = [];
+  columnasFormulas: TableColumn[] = [];
   columnasProductos: TableColumn[] = [];
   dataSourceMateriales: any[] = [];
   dataSourceMaterialesCompuestos: any[] = [];
   dataSourceProductos: any[] = [];
+  dataSourceFormulas: any[] = [];
   contador: number = 0;
   arrayNotificaciones: any[] = [];
 
@@ -34,6 +36,7 @@ export class ListadoComponent implements OnInit {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
     this.cargarProductos();
+    this.cargarFormulas();   
 
   }
 
@@ -94,6 +97,14 @@ export class ListadoComponent implements OnInit {
       { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' }, // Detalles de materiales compuestos usados
       { label: 'Alerta Stock', def: 'alertaStock', dataKey: 'alertaStock' }
     ];
+
+    this.columnasFormulas = [
+      { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
+      { label: 'Código', def: 'codigo', dataKey: 'codigo' },
+      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
+      { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
+      { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' }, // Detalles de materiales compuestos usados
+    ];
   }
 
   cargarMateriales() {
@@ -128,6 +139,18 @@ export class ListadoComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener los productos:', error);
+      }
+    });
+  }
+
+  cargarFormulas() {
+    this.stockService.getFormulas().subscribe({
+      next: (data) => {
+        this.dataSourceFormulas = data;
+        this.checkStock(this.dataSourceFormulas);
+      },
+      error: (error) => {
+        console.error('Error al obtener las formulas:', error);
       }
     });
   }

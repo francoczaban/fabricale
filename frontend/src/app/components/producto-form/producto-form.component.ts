@@ -9,6 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import {ChangeDetectionStrategy } from '@angular/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import { FormulaComponent } from '../formula/formula.component';
 
 @Component({
   standalone: true,
@@ -16,14 +21,17 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './producto-form.component.html',
   imports: [ReactiveFormsModule, CommonModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, MatIconModule, 
-    MatDividerModule, MatButtonModule],
+    MatDividerModule, MatButtonModule, MatCardModule, MatChipsModule, MatProgressBarModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./producto-form.component.css']
 })
 export class ProductoFormComponent implements OnInit {
   productoForm: FormGroup;
   materiales: any[] = [];
+  formulas: any[] = []
   materialesCompuestos: any[] = [];
   unidadesMedida: string[] = ['KG', 'LT', 'GR', 'CC']; // Lista simple de unidades
+
 
   constructor(private fb: FormBuilder, private stockService: StockService) {
     this.productoForm = this.fb.group({
@@ -40,6 +48,7 @@ export class ProductoFormComponent implements OnInit {
   ngOnInit(): void {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
+    this.cargarFormulas();
     window.addEventListener('wheel', (event) => {
       // tu código aquí
     }, { passive: true });
@@ -51,6 +60,14 @@ export class ProductoFormComponent implements OnInit {
       this.materiales = this.materiales.filter(material => material.cantidad != 0);      
     });
   }
+
+  cargarFormulas() {
+    this.stockService.getFormulas().subscribe((data) => {      
+      this.formulas = data;      
+      // this.formulas = this.formulas.filter(this.formulas => this.formulas.cantidad != 0);      
+    });
+  } 
+  
 
   cargarMaterialesCompuestos() {
     this.stockService.getMaterialesCompuestos().subscribe((data) => {
@@ -99,7 +116,7 @@ export class ProductoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.productoForm.valid) {
-      console.log("producto: ",this.productoForm.value)
+      console.log("producto estoy aca: ",this.productoForm.value)
       this.stockService.addProducto(this.productoForm.value).subscribe(
         (response) => {
           console.log('Producto creado:', response);

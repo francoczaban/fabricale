@@ -33,10 +33,7 @@ export class NotificationsComponent {
           this.array= [];
         }
         this.array.push(data);
-      }
-      // console.log('Datos recibidos:', this.datosRecibidos);
-      console.log('Datos array:', this.array);
-      console.log('Datos recibidos:', this.datosRecibidos);
+      }      
     });
   }
   

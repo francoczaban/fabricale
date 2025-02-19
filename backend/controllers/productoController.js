@@ -14,8 +14,13 @@ exports.crearProducto = async(req, res) => {
         logger.info(`Intentando crear producto: ${nombre}, código: ${codigo}`);
 
         // Verificar y descontar stock de cada material básico usado
+
         for (const item of materialesUsados) {
+
+            console.log('item.material: ', item.material);
+            console.log('item.material.id: ', item.material.id);
             const material = await Material.findById(item.material);
+
             if (!material) {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
@@ -33,8 +38,9 @@ exports.crearProducto = async(req, res) => {
         }
 
         // Verificar y descontar stock de cada material compuesto usado
+        console.log('materialesCompuesto: ', materialesCompuestosUsados);
         for (const item of materialesCompuestosUsados) {
-            console.log('item: ', materialesCompuestosUsados);
+            console.log('itemcOMPUESTO: ', item);
             const materialCompuesto = await MaterialCompuesto.findById(item.materialCompuesto);
             if (!materialCompuesto) {
                 throw new Error(`Material compuesto con ID ${item.materialCompuesto} no encontrado`);
@@ -61,7 +67,7 @@ exports.crearProducto = async(req, res) => {
             materialesUsados,
             materialesCompuestosUsados,
         });
-        console.log('Producto: ', producto);
+        console.log('Producto estoy aca: ', producto);
 
         await producto.save();
         logger.info(`Producto creado exitosamente: ${nombre}`);

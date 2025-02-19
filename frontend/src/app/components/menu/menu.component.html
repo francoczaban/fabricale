@@ -1,21 +1,28 @@
 <nav class="navbar">
-  <ul class="navbar-links">
-    <li>
-      <a (click)="navigateTo('/materiales')">Materiales</a>
-    </li>
-    <li>
-      <a (click)="navigateTo('/materiales-compuestos')">Materiales Compuestos</a>
-    </li>
-    <li>
-      <a (click)="navigateTo('/productos')">Productos</a>
-    </li>
-    <li>
-      <a (click)="navigateTo('/listado')">Lista Materiales / Productos</a>
-    </li>
-    <li>
-      <a (click)="navigateTo('/proveedores')">Proveedores</a>
-    </li>
-  </ul>
-  <app-notifications></app-notifications>
-  <a class="logout-btn" (click)="logout()">Cerrar Sesión</a>
+    <ul class="navbar-links">
+        <li>
+            <a (click)="navigateTo('/materiales')">Materiales</a>
+        </li>
+        <li>
+            <a (click)="navigateTo('/materiales-compuestos')">Materiales Compuestos</a>
+        </li>
+        <li>
+            <a (click)="navigateTo('/productos')">Productos</a>
+        </li>
+        <li>
+            <a (click)="navigateTo('/listado')">Lista Materiales / Productos</a>
+        </li>
+        <li>
+            <a (click)="navigateTo('/proveedores')">Proveedores</a>
+        </li>
+        <li>
+            <a (click)="navigateTo('/formula')">Formulas</a>
+        </li>
+
+        <li>
+            <a (click)="navigateTo('/lista-formulas')">Lista de Formulas</a>
+        </li>
+    </ul>
+    <app-notifications></app-notifications>
+    <a class="logout-btn" (click)="logout()">Cerrar Sesión</a>
 </nav>
