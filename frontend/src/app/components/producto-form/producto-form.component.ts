@@ -116,7 +116,7 @@ export class ProductoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.productoForm.valid) {
-      console.log("producto estoy aca: ",this.productoForm.value)
+      console.log("JSON que se enviara: ",this.productoForm.value)
       this.stockService.addProducto(this.productoForm.value).subscribe(
         (response) => {
           console.log('Producto creado:', response);

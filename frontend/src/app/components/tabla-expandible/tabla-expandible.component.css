@@ -1,0 +1,21 @@
+.expanded-row {
+    background-color: #f1f1f1;
+    /* Un fondo diferente para las filas expandidas */
+    padding: 10px;
+    font-size: 14px;
+}
+
+mat-row.expanded {
+    background-color: #f9f9f9;
+    /* Otras configuraciones de estilos si las necesitas */
+}
+
+button.mat-icon-button {
+    background-color: transparent;
+}
+
+mat-icon {
+    font-size: 24px;
+    color: #1976d2;
+    /* Color azul para el ícono */
+}

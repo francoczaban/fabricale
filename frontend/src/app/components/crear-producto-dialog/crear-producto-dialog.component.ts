@@ -40,13 +40,9 @@ export class CrearProductoDialogComponent implements OnInit {
   dataSource: any = {}; 
   productoForm!: FormGroup;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { formula: any },
-    private fb: FormBuilder,
-    private stockService: StockService
-  ) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { formula: any },private fb: FormBuilder,
+              private stockService: StockService) {
     this.dataSource = this.data.formula;
-    console.log('🔍 DataSource recibido:', this.dataSource);
   }
 
   ngOnInit(): void {
@@ -63,11 +59,11 @@ export class CrearProductoDialogComponent implements OnInit {
       unidadMedida: [datos.unidadMedida, Validators.required],
       cantidad: ['', [Validators.required, Validators.min(0)]],
       alertaStock: ['', [Validators.required, Validators.min(0)]],
+      // materialesUsados: this.fb.array([]),
+      // materialesCompuestosUsados: this.fb.array([]),
 
       materialesCompuestosUsados: this.fb.array(
         (datos.materialesCompuestosUsados || []).map((materialCompuesto: any) => {
-          console.log('🔍 Material Compuesto antes de asignarlo:', materialCompuesto);
-
           // Verifica si materialCompuesto y su id son válidos
           if (!materialCompuesto || !materialCompuesto.materialCompuesto || !materialCompuesto.materialCompuesto._id) {
             console.error('❌ ERROR: materialCompuesto o materialCompuesto.materialCompuesto._id es undefined:', materialCompuesto);
@@ -84,9 +80,7 @@ export class CrearProductoDialogComponent implements OnInit {
       ),
 
       materialesUsados: this.fb.array(
-        (datos.materialesUsados || []).map((materialUsado: any) => {
-          console.log('🔍 Material Usado antes de asignarlo:', materialUsado);
-
+        (datos.materialesUsados || []).map((materialUsado: any) => {          
           // Verifica si materialUsado y su id son válidos
           if (!materialUsado || !materialUsado.material || !materialUsado.material._id) {
             console.error('❌ ERROR: materialUsado o materialUsado.material._id es undefined:', materialUsado);
@@ -97,13 +91,11 @@ export class CrearProductoDialogComponent implements OnInit {
             nombre: [materialUsado.material?.nombre || ''],
             cantidad: [materialUsado.cantidad || 0, [Validators.required, Validators.min(0)]],
             id: [materialUsado.material._id || ''], 
-            unidadMedida: [materialUsado.material?.unidadMedida || ''],
+            unidadMedida: [materialUsado.unidadMedida || ''],
           });
         })
       ),
-    });
-
-    console.log('✅ Formulario generado:', this.productoForm.value);
+    });    
   }
 
   crearProducto() {
@@ -135,6 +127,7 @@ export class CrearProductoDialogComponent implements OnInit {
 
     // Enviar solo si los datos son válidos
     if (this.productoForm.valid) {
+      console.log("JSON que se enviara: ",this.productoForm.value)
       this.stockService.addProducto(productoData).subscribe(
         (response) => {
           console.log('✅ Producto creado con éxito:', response);

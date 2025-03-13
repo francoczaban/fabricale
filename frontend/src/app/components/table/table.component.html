@@ -12,10 +12,10 @@
                     <ul>
                         <li *ngFor="let item of row[column.dataKey]">
                             <span *ngIf="item.material">
-                {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }}
+                {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
               </span>
                             <span *ngIf="item.materialCompuesto">
-                {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }}
+                {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
               </span>
                         </li>
                     </ul>

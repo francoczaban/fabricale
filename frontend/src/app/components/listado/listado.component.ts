@@ -7,12 +7,14 @@ import { TableComponent } from '../table/table.component';
 import { Router } from '@angular/router';
 import { DataTransferService } from '../../services/data-transfer.service';
 import { MatIconModule } from '@angular/material/icon';
+import { TablaExpandibleComponent } from "../tabla-expandible/tabla-expandible.component";
 
 @Component({
   standalone: true,
   selector: 'app-listado',
   templateUrl: './listado.component.html',
-  imports: [CommonModule, RouterModule, TableComponent, MatIconModule]
+  styleUrl: './listado.component.css',
+  imports: [CommonModule, RouterModule, TableComponent, MatIconModule, TablaExpandibleComponent]
 })
 export class ListadoComponent implements OnInit {
   materiales: any[] = [];
@@ -24,6 +26,7 @@ export class ListadoComponent implements OnInit {
   columnasProductos: TableColumn[] = [];
   dataSourceMateriales: any[] = [];
   dataSourceMaterialesCompuestos: any[] = [];
+  dataSourceMaterialesCompuestos2: any[] = [];
   dataSourceProductos: any[] = [];
   dataSourceFormulas: any[] = [];
   contador: number = 0;
@@ -100,8 +103,6 @@ export class ListadoComponent implements OnInit {
 
     this.columnasFormulas = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
-      { label: 'Código', def: 'codigo', dataKey: 'codigo' },
-      { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
       { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' }, // Detalles de materiales compuestos usados
     ];

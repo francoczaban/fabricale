@@ -33,7 +33,6 @@ export class ListaFormulasComponent {
   ngOnInit(): void {
     this.stockService.getFormulas().subscribe({
       next: (data) => {
-        console.log('data: ', JSON.stringify(data, null, 2));
         this.listaFormulas = data;
       },
       error: (error) => {

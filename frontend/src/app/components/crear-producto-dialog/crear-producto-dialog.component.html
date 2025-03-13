@@ -1,5 +1,5 @@
 <form [formGroup]="productoForm">
-    <h3>Editar Material Compuesto</h3>
+    <h3>FERNANDO</h3>
 
     <div class="formula-cards-container">
         <mat-card class="example-card" appearance="outlined">
@@ -17,7 +17,7 @@
                     <h5>Materiales Usados</h5>
                     <ul>
                         <li *ngFor="let material of productoForm.value.materialesUsados">
-                            <strong>{{ material.nombre }}:</strong> {{ material.cantidad }} {{ material.unidadMedida }}
+                            <strong>{{ material.nombre }}:</strong> {{ material.cantidad }} / {{ material.unidadMedida }}
                         </li>
                     </ul>
                 </div>

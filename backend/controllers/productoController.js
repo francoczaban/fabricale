@@ -14,18 +14,17 @@ exports.crearProducto = async(req, res) => {
         logger.info(`Intentando crear producto: ${nombre}, código: ${codigo}`);
 
         // Verificar y descontar stock de cada material básico usado
-
         for (const item of materialesUsados) {
-
-            console.log('item.material: ', item.material);
-            console.log('item.material.id: ', item.material.id);
-            const material = await Material.findById(item.material);
+            const material = await Material.findById(item.id);
 
             if (!material) {
-                throw new Error(`Material con ID ${item.material} no encontrado`);
+                throw new Error(`Material con ID ${item.id} no encontrado`);
             }
 
-            const cantidadNecesaria = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            let cantidadTotal = item.cantidad * cantidad;
+            console.log('cantidadTotal material', cantidadTotal);
+
+            const cantidadNecesaria = convertirUnidades(cantidadTotal, item.unidadMedida, material.unidadMedida);
 
             if (material.cantidad < cantidadNecesaria) {
                 throw new Error(`Stock insuficiente para el material ${material.nombre}. Disponible: ${material.cantidad} ${material.unidadMedida}, requerido: ${cantidadNecesaria} ${material.unidadMedida}`);
@@ -33,20 +32,21 @@ exports.crearProducto = async(req, res) => {
 
             // Descontar el stock con la cantidad convertida
             material.cantidad -= cantidadNecesaria;
-            console.log('Material guardado en productos: ', material)
             await material.save();
         }
 
         // Verificar y descontar stock de cada material compuesto usado
-        console.log('materialesCompuesto: ', materialesCompuestosUsados);
         for (const item of materialesCompuestosUsados) {
-            console.log('itemcOMPUESTO: ', item);
-            const materialCompuesto = await MaterialCompuesto.findById(item.materialCompuesto);
+            const materialCompuesto = await MaterialCompuesto.findById(item.id);
+
             if (!materialCompuesto) {
                 throw new Error(`Material compuesto con ID ${item.materialCompuesto} no encontrado`);
             }
 
-            const cantidadNecesariaCompuesto = convertirUnidades(item.cantidad, item.unidadMedida, materialCompuesto.unidadMedida);
+            let cantidadTotal = item.cantidad * cantidad;
+            console.log('cantidadTotal compuesto: ', cantidadTotal);
+
+            const cantidadNecesariaCompuesto = convertirUnidades(cantidadTotal, item.unidadMedida, materialCompuesto.unidadMedida);
 
             if (materialCompuesto.cantidad < cantidadNecesariaCompuesto) {
                 throw new Error(`Stock insuficiente para el material compuesto ${materialCompuesto.nombre}. Disponible: ${materialCompuesto.cantidad} ${materialCompuesto.unidadMedida}, requerido: ${cantidadNecesariaCompuesto} ${materialCompuesto.unidadMedida}`);
@@ -64,10 +64,17 @@ exports.crearProducto = async(req, res) => {
             cantidad,
             unidadMedida,
             alertaStock,
-            materialesUsados,
-            materialesCompuestosUsados,
+            materialesUsados: materialesUsados.map(item => ({
+                material: item.id,
+                cantidad: item.cantidad,
+                unidadMedida: item.unidadMedida
+            })),
+            materialesCompuestosUsados: materialesCompuestosUsados.map(item => ({
+                materialCompuesto: item.id,
+                cantidad: item.cantidad,
+                unidadMedida: item.unidadMedida
+            })),
         });
-        console.log('Producto estoy aca: ', producto);
 
         await producto.save();
         logger.info(`Producto creado exitosamente: ${nombre}`);
@@ -147,7 +154,6 @@ exports.editarProducto = async(req, res) => {
 exports.eliminarProducto = async(req, res) => {
     // const session = await mongoose.startSession();
     // session.startTransaction();
-    console.log('antes de entrar al try');
     try {
         const { id } = req.params;
         console.log('ID:', id);
