@@ -16,8 +16,11 @@ exports.crearMaterialCompuesto = async(req, res) => {
             if (!material) {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
+            
+            let cantidadTotal = item.cantidad * cantidad;
+            console.log('cantidadTotal material', cantidadTotal);
 
-            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(cantidadTotal, item.unidadMedida, material.unidadMedida);
 
             if (material.cantidad < cantidadUsadaEnInventarioUnidad) {
                 throw new Error(
@@ -155,12 +158,17 @@ exports.editarMaterialCompuesto = async(req, res) => {
 // Eliminar un material compuesto con transacción
 exports.eliminarMaterialCompuesto = async(req, res) => {
 
+    //console.log("1", req.params);
+
     const { id } = req.params;
+
+    //console.log("2", id);
 
     try {
         const materialCompuesto = await MaterialCompuesto.findById(id).populate(
             "materialesUsados.material"
         );
+        //console.log("3", materialCompuesto);
 
         if (!materialCompuesto) {
             throw new Error(`Material compuesto con ID ${id} no encontrado`);
@@ -168,6 +176,8 @@ exports.eliminarMaterialCompuesto = async(req, res) => {
 
         // Revertir el stock de los materiales usados previamente
         for (const item of materialCompuesto.materialesUsados) {
+
+            //console.log("4", item);
             const material = await Material.findById(item.material._id);
 
             if (material) {
