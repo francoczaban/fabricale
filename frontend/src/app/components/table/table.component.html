@@ -1,51 +1,55 @@
-<mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
-</mat-form-field>
-
-<div class="example-container mat-elevation-z8" *ngIf="dataSource">
-    <mat-table #table [dataSource]="dataSource" matSort>
+<div class="table-container">
+    <mat-form-field appearance="outline" class="filter-input">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
+    </mat-form-field>
+  
+    <div class="custom-table-wrapper">
+      <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
+  
         <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
-                    <ul>
-                        <li *ngFor="let item of row[column.dataKey]">
-                            <span *ngIf="item.material">
-                {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
-              </span>
-                            <span *ngIf="item.materialCompuesto">
-                {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
-              </span>
-                        </li>
-                    </ul>
-                </ng-container>
-                <ng-template #singleValue>
-                    {{ formatNumber(row[column.dataKey]) }}
-                </ng-template>
-            </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
+              <ul class="material-list">
+                <li *ngFor="let item of row[column.dataKey]">
+                  <span *ngIf="item.material">
+                    {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
+                  </span>
+                  <span *ngIf="item.materialCompuesto">
+                    {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
+                  </span>
+                </li>
+              </ul>
+            </ng-container>
+            <ng-template #singleValue>
+              {{ formatNumber(row[column.dataKey]) }}
+            </ng-template>
+          </mat-cell>
         </ng-container>
-
-        <!-- Columna para acciones -->
+  
+        <!-- Columna de Acciones -->
         <ng-container matColumnDef="accion">
-            <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <button mat-raised-button color="primary" (click)="onEdit(row)">
-          Editar
-        </button>
-                <button mat-raised-button color="warn" (click)="onDelete(row)">
-          Eliminar
-        </button>
-                <button mat-raised-button color="warn" (click)="onAgregar(row)">
-          Agregar
-        </button>
-            </mat-cell>
+          <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="action-buttons">
+            <button mat-icon-button color="primary" (click)="onEdit(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDelete(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="onAgregar(row)">
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </mat-cell>
         </ng-container>
-
+  
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-    </mat-paginator>
-</div>
+      </mat-table>
+  
+      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </div>
+  
