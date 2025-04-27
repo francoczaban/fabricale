@@ -1,61 +1,46 @@
-<form [formGroup]="productoForm">
-    <h3>FERNANDO</h3>
-
-    <div class="formula-cards-container">
-        <mat-card class="example-card" appearance="outlined">
-            <mat-card-header>
-                <mat-card-title>{{productoForm.value.nombre}}</mat-card-title>
-
-            </mat-card-header>
-            <mat-card-content>
-
-
-                <p><strong>Unidad de medida:</strong> {{ productoForm.value.unidadMedida }}</p>
-
-                <!-- Materiales Usados -->
-                <div *ngIf="productoForm.value.materialesUsados.length > 0">
-                    <h5>Materiales Usados</h5>
-                    <ul>
-                        <li *ngFor="let material of productoForm.value.materialesUsados">
-                            <strong>{{ material.nombre }}:</strong> {{ material.cantidad }} / {{ material.unidadMedida }}
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Materiales Compuestos Usados -->
-                <div *ngIf="productoForm.value.materialesCompuestosUsados.length > 0">
-                    <h5>Materiales Compuestos Usados</h5>
-                    <ul>
-                        <li *ngFor="let materialCompuesto of productoForm.value.materialesCompuestosUsados">
-                            <strong>{{ materialCompuesto.nombre }}:</strong> {{ materialCompuesto.cantidad }} {{ materialCompuesto.unidadMedida }}
-                        </li>
-                    </ul>
-                </div>
-
-
-
-                <mat-form-field class="example-full-width">
-                    <mat-label>Cantidad:</mat-label>
-                    <input matInput id="cantidad" type="text" formControlName="cantidad">
-                </mat-form-field>
-
-                <mat-form-field class="example-full-width">
-                    <mat-label>Codigo:</mat-label>
-                    <input matInput id="codigo" type="text" name="codigo" formControlName="codigo">
-                </mat-form-field>
-
-                <!-- Campo StockAlerta -->
-                <mat-form-field class="full-width">
-                    <mat-label>Alerta Stock</mat-label>
-                    <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock" placeholder="Alerta de poco stock">
-                </mat-form-field>
-
-
-
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button (click)="crearProducto()">CREAR</button>
-            </mat-card-actions>
-        </mat-card>
+<form [formGroup]="productoForm" class="modal-form">
+    <h2 class="modal-title">{{ productoForm.value.nombre }}</h2>
+  
+    <div class="modal-content">
+      <p><strong>Unidad de medida:</strong> {{ productoForm.value.unidadMedida }}</p>
+  
+      <div *ngIf="productoForm.value.materialesUsados.length > 0">
+        <h4>Materiales Usados</h4>
+        <ul>
+          <li *ngFor="let material of productoForm.value.materialesUsados">
+            {{ material.nombre }}: {{ material.cantidad }} {{ material.unidadMedida }}
+          </li>
+        </ul>
+      </div>
+  
+      <div *ngIf="productoForm.value.materialesCompuestosUsados.length > 0">
+        <h4>Materiales Compuestos Usados</h4>
+        <ul>
+          <li *ngFor="let materialCompuesto of productoForm.value.materialesCompuestosUsados">
+            {{ materialCompuesto.nombre }}: {{ materialCompuesto.cantidad }} {{ materialCompuesto.unidadMedida }}
+          </li>
+        </ul>
+      </div>
+  
+      <mat-form-field class="modal-field">
+        <mat-label>Cantidad*</mat-label>
+        <input matInput formControlName="cantidad" type="number">
+      </mat-form-field>
+  
+      <mat-form-field class="modal-field">
+        <mat-label>Código*</mat-label>
+        <input matInput formControlName="codigo" type="text">
+      </mat-form-field>
+  
+      <mat-form-field class="modal-field">
+        <mat-label>Alerta Stock*</mat-label>
+        <input matInput formControlName="alertaStock" type="number">
+      </mat-form-field>
     </div>
-</form>
+  
+    <div class="modal-actions">
+      <!-- <button mat-button color="warn" >Cancelar</button> -->
+      <button mat-flat-button color="primary" (click)="crearProducto()" [disabled]="productoForm.invalid">Confirmar</button>
+    </div>
+  </form>
+  

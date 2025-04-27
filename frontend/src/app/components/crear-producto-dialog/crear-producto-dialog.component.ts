@@ -1,17 +1,5 @@
-import {
-  Component,
-  Inject,
-  ChangeDetectionStrategy,
-  OnInit,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  ReactiveFormsModule,
-  Validators,
-  FormsModule,
-} from '@angular/forms';
+import { Component, Inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -37,16 +25,16 @@ import { StockService } from '../../services/stock.service';
   styleUrl: './crear-producto-dialog.component.css',
 })
 export class CrearProductoDialogComponent implements OnInit {
-  dataSource: any = {}; 
+  dataSource: any = {};
   productoForm!: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { formula: any },private fb: FormBuilder,
-              private stockService: StockService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { formula: any }, private fb: FormBuilder,
+    private stockService: StockService) {
     this.dataSource = this.data.formula;
   }
 
   ngOnInit(): void {
-    const datos = this.dataSource; 
+    const datos = this.dataSource;
     console.log('📌 Datos en OnInit:', datos);
 
     if (!datos || !datos.materialesCompuestosUsados || !datos.materialesUsados) {
@@ -72,7 +60,7 @@ export class CrearProductoDialogComponent implements OnInit {
 
           return this.fb.group({
             nombre: [materialCompuesto.materialCompuesto?.nombre || ''],
-            id: [materialCompuesto.materialCompuesto._id || ''], 
+            id: [materialCompuesto.materialCompuesto._id || ''],
             cantidad: [materialCompuesto.cantidad || 0, [Validators.required, Validators.min(0)]],
             unidadMedida: [materialCompuesto.unidadMedida || ''],
           });
@@ -80,7 +68,7 @@ export class CrearProductoDialogComponent implements OnInit {
       ),
 
       materialesUsados: this.fb.array(
-        (datos.materialesUsados || []).map((materialUsado: any) => {          
+        (datos.materialesUsados || []).map((materialUsado: any) => {
           // Verifica si materialUsado y su id son válidos
           if (!materialUsado || !materialUsado.material || !materialUsado.material._id) {
             console.error('❌ ERROR: materialUsado o materialUsado.material._id es undefined:', materialUsado);
@@ -90,12 +78,12 @@ export class CrearProductoDialogComponent implements OnInit {
           return this.fb.group({
             nombre: [materialUsado.material?.nombre || ''],
             cantidad: [materialUsado.cantidad || 0, [Validators.required, Validators.min(0)]],
-            id: [materialUsado.material._id || ''], 
+            id: [materialUsado.material._id || ''],
             unidadMedida: [materialUsado.unidadMedida || ''],
           });
         })
       ),
-    });    
+    });
   }
 
   crearProducto() {
@@ -127,7 +115,7 @@ export class CrearProductoDialogComponent implements OnInit {
 
     // Enviar solo si los datos son válidos
     if (this.productoForm.valid) {
-      console.log("JSON que se enviara: ",this.productoForm.value)
+      console.log("JSON que se enviara: ", this.productoForm.value)
       this.stockService.addProducto(productoData).subscribe(
         (response) => {
           console.log('✅ Producto creado con éxito:', response);
