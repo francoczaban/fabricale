@@ -9,20 +9,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import {ChangeDetectionStrategy } from '@angular/core';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatCardModule} from '@angular/material/card';
-import {MatChipsModule} from '@angular/material/chips';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { FormulaComponent } from '../formula/formula.component';
+import { MatTabsModule } from '@angular/material/tabs'
 
 @Component({
   standalone: true,
   selector: 'app-producto-form',
   templateUrl: './producto-form.component.html',
   imports: [ReactiveFormsModule, CommonModule, MatInputModule,
-    MatFormFieldModule, MatSelectModule, MatIconModule, 
+    MatFormFieldModule, MatSelectModule, MatIconModule, MatTabsModule,
     MatDividerModule, MatButtonModule, MatCardModule, MatChipsModule, MatProgressBarModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./producto-form.component.css']
 })
 export class ProductoFormComponent implements OnInit {
@@ -55,19 +56,19 @@ export class ProductoFormComponent implements OnInit {
   }
 
   cargarMateriales() {
-    this.stockService.getMateriales().subscribe((data) => {      
-      this.materiales = data;      
-      this.materiales = this.materiales.filter(material => material.cantidad != 0);      
+    this.stockService.getMateriales().subscribe((data) => {
+      this.materiales = data;
+      this.materiales = this.materiales.filter(material => material.cantidad != 0);
     });
   }
 
   cargarFormulas() {
-    this.stockService.getFormulas().subscribe((data) => {      
-      this.formulas = data;      
+    this.stockService.getFormulas().subscribe((data) => {
+      this.formulas = data;
       // this.formulas = this.formulas.filter(this.formulas => this.formulas.cantidad != 0);      
     });
-  } 
-  
+  }
+
 
   cargarMaterialesCompuestos() {
     this.stockService.getMaterialesCompuestos().subscribe((data) => {
@@ -112,11 +113,11 @@ export class ProductoFormComponent implements OnInit {
     const material = this.materiales.find(mat => mat._id === materialId);
     return material ? Array.from({ length: material.stock }, (_, i) => i + 1) : [];
   }
-  
+
 
   onSubmit() {
     if (this.productoForm.valid) {
-      console.log("JSON que se enviara: ",this.productoForm.value)
+      console.log("JSON que se enviara: ", this.productoForm.value)
       this.stockService.addProducto(this.productoForm.value).subscribe(
         (response) => {
           console.log('Producto creado:', response);

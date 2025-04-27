@@ -1,60 +1,43 @@
 <form class="materialesform" (ngSubmit)="addMaterial()">
   <h3>Crear Material</h3>
+
   <div class="container">
     <div class="col1">
-      <!-- Campo Nombre -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Nombre</mat-label>
-        <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre"
-          placeholder="Ingrese el nombre del material" required>
+        <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre" placeholder="Ingrese el nombre" required>
       </mat-form-field>
 
-      <!-- Campo Código -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Código</mat-label>
-        <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo"
-          placeholder="Ingrese el código del material" required>
+        <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo" placeholder="Ingrese el código" required>
       </mat-form-field>
 
-      <!-- Campo Cantidad -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Cantidad</mat-label>
-        <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad"
-          placeholder="Ingrese la cantidad" required>
+        <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad" placeholder="Ingrese la cantidad" required>
       </mat-form-field>
-
     </div>
 
     <div class="col2">
-      <!-- Campo Unidad de Medida -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Unidad de Medida</mat-label>
         <mat-select [(ngModel)]="material.unidadMedida" name="unidadMedida" required>
-          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-            {{ unidad }}
-          </mat-option>
+          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <!-- Campo Precio -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Precio</mat-label>
-        <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio"
-          placeholder="Ingrese el precio del material">
+        <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio" placeholder="Ingrese el precio">
       </mat-form-field>
 
-      <!-- Campo StockAlerta -->
-      <mat-form-field class="full-width">
+      <mat-form-field appearance="outline" class="full-width">
         <mat-label>Alerta Stock</mat-label>
-        <input matInput type="number" id="alertaStock" name="alertaStock" [(ngModel)]="material.alertaStock"
-          placeholder="Alerta de poco stock">
+        <input matInput type="number" id="alertaStock" name="alertaStock" [(ngModel)]="material.alertaStock" placeholder="Ingrese la alerta">
       </mat-form-field>
     </div>
-
   </div>
 
-  <!-- Botón Guardar -->
-  <button mat-flat-button color="primary" class="submit-button">
-    Guardar Material
-  </button>
+  <button mat-flat-button class="submit-button" type="submit">Guardar Material</button>
 </form>

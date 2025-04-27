@@ -1,134 +1,127 @@
-<form [formGroup]="productoForm" (ngSubmit)="onSubmit()" style="place-self: center;">
-    <h3 style="text-align: center;">Crear Producto</h3>
-
-    <div>
-        <mat-form-field class="example-full-width" style="width: 420px;">
-            <mat-label>Nombre</mat-label>
-            <input matInput id="nombre" formControlName="nombre" type="text">
-        </mat-form-field>
-    </div>
-
-    <div>
-        <mat-form-field class="example-full-width" style="width: 420px;">
-            <mat-label>Código</mat-label>
-            <input matInput id="codigo" formControlName="codigo" type="text">
-        </mat-form-field>
-    </div>
-
-    <div>
-        <mat-form-field class="example-full-width" style="width: 420px;">
-            <mat-label>Cantidad</mat-label>
-            <input matInput id="cantidad" formControlName="cantidad" type="number">
-        </mat-form-field>
-    </div>
-
-    <!-- Campo Unidad de Medida -->
-    <mat-form-field class="example-full-width" style="width: 420px;">
-        <mat-label>Unidad de Medida</mat-label>
-        <mat-select formControlName="unidadMedida" required>
-            <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-                {{ unidad }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <!-- Campo StockAlerta -->
-    <mat-form-field class="full-width">
-        <mat-label>Alerta Stock</mat-label>
-        <input matInput type="number" id="alertaStock" name="alertaStock" formControlName="alertaStock" placeholder="Alerta de poco stock">
-    </mat-form-field>
-
-    <div formArrayName="materialesUsados">
-        <h5 style="text-align: center;">Materiales</h5>
-        <div *ngFor="let material of materialesUsados.controls; let i = index" [formGroupName]="i">
-
-            <div>
-                <br>
-                <mat-form-field>
-                    <mat-label>Material</mat-label>
-                    <mat-select formControlName="material">
-                        @for (mat of materiales; track materiales) {
-                        <mat-option [value]="mat._id">{{ mat.nombre }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput type="number" formControlName="cantidad">
-                </mat-form-field>
-            </div>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Unidad de Medida</mat-label>
-                <mat-select formControlName="unidadMedida" required>
-                    <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-                        {{ unidad }}
-                    </mat-option>
-                </mat-select>
+<form [formGroup]="productoForm" class="contenido-principal" (ngSubmit)="onSubmit()">
+    <h1 class="titulo-seccion">Crear Producto</h1>
+  
+    <mat-tab-group>
+      <mat-tab label="Detalles Generales" >
+        <mat-card class="card-seccion" >
+          <h3 class="titulo-card">Detalles Generales</h3>
+  
+          <div class="fila">
+            <mat-form-field class="campo">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre">
             </mat-form-field>
-
-            <button mat-fab type="button" (click)="eliminarMaterialUsado(i)">
-        <mat-icon>delete</mat-icon>
-      </button>
-
-        </div>
-
-        <br>
-        <button mat-raised-button type="button" (click)="agregarMaterialUsado()" style="place-self: center;" style="width: 420px;">Agregar
-      Material</button>
-
-    </div>
-
-    <div formArrayName="materialesCompuestosUsados">
-        <br>
-        <h5 style="text-align: center;">Materiales Compuestos</h5>
-        <div *ngFor="let materialCompuesto of materialesCompuestosUsados.controls; let i = index" [formGroupName]="i">
-
-            <div>
-                <br>
-                <mat-form-field>
-                    <mat-label>Material Compuesto</mat-label>
-                    <mat-select formControlName="materialCompuesto">
-                        @for (matComp of materialesCompuestos; track materialesCompuestosUsados) {
-                        <mat-option [value]="matComp._id">{{ matComp.nombre }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field class="example-full-width">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput type="number" formControlName="cantidad">
-                </mat-form-field>
-            </div>
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Unidad de Medida</mat-label>
-                <mat-select formControlName="unidadMedida" required>
-                    <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">
-                        {{ unidad }}
-                    </mat-option>
-                </mat-select>
+  
+            <mat-form-field class="campo">
+              <mat-label>Código</mat-label>
+              <input matInput formControlName="codigo">
             </mat-form-field>
-
-            <button type="button" mat-fab aria-label="" (click)="eliminarMaterialCompuestoUsado(i)">
-        <mat-icon>delete</mat-icon>
+          </div>
+  
+          <div class="fila">
+            <mat-form-field class="campo">
+              <mat-label>Unidad de Medida</mat-label>
+              <mat-select formControlName="unidadMedida">
+                <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field class="campo">
+              <mat-label>Cantidad</mat-label>
+              <input matInput type="number" formControlName="cantidad">
+            </mat-form-field>
+  
+            <mat-form-field class="campo">
+              <mat-label>Alerta Stock</mat-label>
+              <input matInput type="number" formControlName="alertaStock">
+            </mat-form-field>
+          </div>
+        </mat-card>
+      </mat-tab>
+  
+      <mat-tab label="Materiales Usados">
+        <mat-card class="card-seccion">
+          <h3 class="titulo-card">Agregar Materiales</h3>
+  
+          <div formArrayName="materialesUsados">
+            <div *ngFor="let material of materialesUsados.controls; let i = index" [formGroupName]="i" class="fila-material">
+              <mat-form-field class="campo">
+                <mat-label>Material</mat-label>
+                <mat-select formControlName="material">
+                  <mat-option *ngFor="let mat of materiales" [value]="mat._id">{{ mat.nombre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field class="campo">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="cantidad">
+              </mat-form-field>
+  
+              <mat-form-field class="campo">
+                <mat-label>Unidad de Medida</mat-label>
+                <mat-select formControlName="unidadMedida">
+                  <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <button mat-icon-button color="warn" type="button" (click)="eliminarMaterialUsado(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="acciones-materiales">
+            <button mat-stroked-button color="primary" type="button" (click)="agregarMaterialUsado()">
+              Agregar Material
+            </button>
+          </div>
+        </mat-card>
+      </mat-tab>
+  
+      <mat-tab label="Materiales Compuestos Usados">
+        <mat-card class="card-seccion">
+          <h3 class="titulo-card">Agregar Materiales Compuestos</h3>
+  
+          <div formArrayName="materialesCompuestosUsados">
+            <div *ngFor="let materialCompuesto of materialesCompuestosUsados.controls; let i = index" [formGroupName]="i" class="fila-material">
+              <mat-form-field class="campo">
+                <mat-label>Material Compuesto</mat-label>
+                <mat-select formControlName="materialCompuesto">
+                  <mat-option *ngFor="let matComp of materialesCompuestos" [value]="matComp._id">{{ matComp.nombre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field class="campo">
+                <mat-label>Cantidad</mat-label>
+                <input matInput type="number" formControlName="cantidad">
+              </mat-form-field>
+  
+              <mat-form-field class="campo">
+                <mat-label>Unidad de Medida</mat-label>
+                <mat-select formControlName="unidadMedida">
+                  <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <button mat-icon-button color="warn" type="button" (click)="eliminarMaterialCompuestoUsado(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <div class="acciones-materiales">
+            <button mat-stroked-button color="primary" type="button" (click)="agregarMaterialCompuestoUsado()">
+              Agregar Material Compuesto
+            </button>
+          </div>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  
+    <div class="acciones-finales">
+      <button mat-flat-button color="primary" type="submit" [disabled]="productoForm.invalid">
+        Guardar Producto
       </button>
-
-        </div>
-        <br>
-        <button type="button" mat-raised-button (click)="agregarMaterialCompuestoUsado()" style="place-self: center;" style="width: 420px;">Agregar
-      Material Compuesto</button>
-
     </div>
-
-    <br>
-    <div>
-        <button mat-flat-button [disabled]="productoForm.invalid" style="place-self: center;" style="width: 420px;">Guardar Producto</button>
-    </div>
-
-</form>
+  </form>
+  

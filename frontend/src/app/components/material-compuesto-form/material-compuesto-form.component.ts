@@ -10,10 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { MatTabsModule }
-  from
-
-  '@angular/material/tabs'
+import { MatTabsModule } from '@angular/material/tabs'
   ;
 
 @Component({
@@ -23,7 +20,7 @@ import { MatTabsModule }
   imports: [
     FormsModule, ReactiveFormsModule, CommonModule,
     MatInputModule, MatFormFieldModule, MatSelectModule,
-    MatIconModule, MatDividerModule, MatButtonModule, MatCard,MatTabsModule
+    MatIconModule, MatDividerModule, MatButtonModule, MatCard, MatTabsModule
   ]
 })
 export class MaterialCompuestoFormComponent implements OnInit {
