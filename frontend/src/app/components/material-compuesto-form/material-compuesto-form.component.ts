@@ -8,7 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule }
+  from
+
+  '@angular/material/tabs'
+  ;
 
 @Component({
   standalone: true,
@@ -17,7 +23,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     FormsModule, ReactiveFormsModule, CommonModule,
     MatInputModule, MatFormFieldModule, MatSelectModule,
-    MatIconModule, MatDividerModule, MatButtonModule
+    MatIconModule, MatDividerModule, MatButtonModule, MatCard,MatTabsModule
   ]
 })
 export class MaterialCompuestoFormComponent implements OnInit {
@@ -43,9 +49,9 @@ export class MaterialCompuestoFormComponent implements OnInit {
   }
 
   cargarMateriales() {
-    this.stockService.getMateriales().subscribe((data) => {      
-      this.materiales = data;      
-      this.materiales = this.materiales.filter(material => material.cantidad != 0);      
+    this.stockService.getMateriales().subscribe((data) => {
+      this.materiales = data;
+      this.materiales = this.materiales.filter(material => material.cantidad != 0);
     });
   }
 
@@ -86,7 +92,7 @@ export class MaterialCompuestoFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('MATERIAL COMPUESTO: ',this.materialCompuestoForm.value)
+    console.log('MATERIAL COMPUESTO: ', this.materialCompuestoForm.value)
     if (this.materialCompuestoForm.valid) {
       this.stockService.addMaterialCompuesto(this.materialCompuestoForm.value).subscribe({
         next: response => console.log('Material compuesto guardado exitosamente', response),

@@ -1,28 +1,45 @@
-<nav class="navbar">
-    <ul class="navbar-links">
-        <li>
-            <a (click)="navigateTo('/materiales')">Materiales</a>
-        </li>
-        <li>
-            <a (click)="navigateTo('/materiales-compuestos')">Materiales Compuestos</a>
-        </li>
-        <li>
-            <a (click)="navigateTo('/productos')">Productos</a>
-        </li>
-        <li>
-            <a (click)="navigateTo('/listado')">Lista Materiales / Productos</a>
-        </li>
-        <li>
-            <a (click)="navigateTo('/proveedores')">Proveedores</a>
-        </li>
-        <li>
-            <a (click)="navigateTo('/formula')">Formulas</a>
-        </li>
-
-        <li>
-            <a (click)="navigateTo('/lista-formulas')">Lista de Formulas</a>
-        </li>
+<aside class="sidebar">
+    <div class="logo">
+      <span class="logo-text">Stock</span>
+    </div>
+  
+    <ul class="sidebar-links">
+      <li (click)="navigateTo('/materiales')">
+        <mat-icon>category</mat-icon>
+        <span>Materiales</span>
+      </li>
+      <li (click)="navigateTo('/materiales-compuestos')">
+        <mat-icon>science</mat-icon>
+        <span>Materiales Comp.</span>
+      </li>
+      <li (click)="navigateTo('/productos')">
+        <mat-icon>inventory_2</mat-icon>
+        <span>Productos</span>
+      </li>
+      <li (click)="navigateTo('/listado')">
+        <mat-icon>list</mat-icon>
+        <span>Lista</span>
+      </li>
+      <li (click)="navigateTo('/proveedores')">
+        <mat-icon>local_shipping</mat-icon>
+        <span>Proveedores</span>
+      </li>
+      <li (click)="navigateTo('/formula')">
+        <mat-icon>calculate</mat-icon>
+        <span>Fórmulas</span>
+      </li>
+      <li (click)="navigateTo('/lista-formulas')">
+        <mat-icon>menu_book</mat-icon>
+        <span>Lista Fórmulas</span>
+      </li>
     </ul>
-    <app-notifications></app-notifications>
-    <a class="logout-btn" (click)="logout()">Cerrar Sesión</a>
-</nav>
+  
+    <div class="sidebar-footer">
+      <app-notifications></app-notifications>
+      <a class="logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </a>
+    </div>
+  </aside>
+  
