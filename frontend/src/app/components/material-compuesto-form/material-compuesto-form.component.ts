@@ -43,13 +43,17 @@ export class MaterialCompuestoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarMateriales()
+
   }
 
   cargarMateriales() {
     this.stockService.getMateriales().subscribe((data) => {
       this.materiales = data;
       this.materiales = this.materiales.filter(material => material.cantidad != 0);
+      console.log("Materiales: ", this.materiales)
     });
+
+
   }
 
   cargarStock(): void {
@@ -109,4 +113,22 @@ export class MaterialCompuestoFormComponent implements OnInit {
       index, // Agrega un índice único para Angular
     }));
   }
+
+  // NUEVA FUNCIÓN: retorna las unidades compatibles según la unidad base
+  getUnidadesCompatibles(unidadBase: string): string[] {
+    if (unidadBase === 'KG') {
+      return ['KG', 'GR'];
+    } else if (unidadBase === 'LT') {
+      return ['LT', 'CC'];
+    } else {
+      return [unidadBase]; // Si no es ninguno de los anteriores, devuelve solo la misma unidad
+    }
+  }
+
+  // NUEVA FUNCIÓN: devuelve la unidad del material seleccionado
+  getUnidadMaterialSeleccionado(materialId: string): string {
+    const material = this.materiales.find(mat => mat._id === materialId);
+    return material ? material.unidadMedida : '';
+  }
+
 }

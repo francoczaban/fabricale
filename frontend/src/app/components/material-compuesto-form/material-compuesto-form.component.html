@@ -67,10 +67,13 @@
             <mat-form-field class="campo">
               <mat-label>Unidad de Medida</mat-label>
               <mat-select formControlName="unidadMedida">
-                <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
+                <mat-option 
+                  *ngFor="let unidad of getUnidadesCompatibles(getUnidadMaterialSeleccionado(material.value.material))" 
+                  [value]="unidad">
+                  {{ unidad }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
-
             <button mat-icon-button color="warn" (click)="eliminarMaterial(i)">
               <mat-icon>delete</mat-icon>
             </button>
