@@ -1,36 +1,38 @@
 <div class="formula-cards-container">
-    <mat-card *ngFor="let formula of listaFormulas" class="example-card" appearance="outlined">
-        <mat-card-header>
-            <mat-card-title>{{ formula.nombre }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <p>{{ formula.descripcion }}</p>
-            <p><strong>Unidad de medida:</strong> {{ formula.unidadMedida }}</p>
-
-            <!-- Materiales Usados -->
-            <div *ngIf="formula.materialesUsados.length > 0">
-                <h5>Materiales Usados</h5>
-                <ul>
-                    <li *ngFor="let material of formula.materialesUsados">
-                        <strong>{{ material.material.nombre }}:</strong> {{ material.cantidad }} {{ material.unidadMedida }}
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Materiales Compuestos Usados -->
-            <div *ngIf="formula.materialesCompuestosUsados.length > 0">
-                <h5>Materiales Compuestos Usados</h5>
-                <ul>
-                    <li *ngFor="let materialCompuesto of formula.materialesCompuestosUsados">
-                        <strong>{{ materialCompuesto.materialCompuesto.nombre }}:</strong> {{ materialCompuesto.cantidad }} {{ materialCompuesto.unidadMedida }}
-                    </li>
-                </ul>
-            </div>
-
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button (click)="openDialog(formula)">CREAR</button>
-            <button mat-button>MODIFICAR</button>
-        </mat-card-actions>
+    <mat-card *ngFor="let formula of listaFormulas" class="formula-card" appearance="outlined">
+      <mat-card-content>
+        <div class="formula-header">
+          <h3 class="formula-title">{{ formula.nombre }}</h3>
+          <p class="formula-description">{{ formula.descripcion }}</p>
+        </div>
+  
+        <div class="formula-details">
+          <p><strong>Unidad de medida:</strong> {{ formula.unidadMedida }}</p>
+  
+          <div *ngIf="formula.materialesUsados.length > 0" class="material-section">
+            <h5>Materiales Usados</h5>
+            <ul>
+              <li *ngFor="let material of formula.materialesUsados">
+                <strong>{{ material.material.nombre }}</strong>: {{ material.cantidad }} {{ material.unidadMedida }}
+              </li>
+            </ul>
+          </div>
+  
+          <div *ngIf="formula.materialesCompuestosUsados.length > 0" class="material-section">
+            <h5>Materiales Compuestos Usados</h5>
+            <ul>
+              <li *ngFor="let materialCompuesto of formula.materialesCompuestosUsados">
+                <strong>{{ materialCompuesto.materialCompuesto.nombre }}</strong>: {{ materialCompuesto.cantidad }} {{ materialCompuesto.unidadMedida }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </mat-card-content>
+  
+      <mat-card-actions class="formula-actions">
+        <button mat-button color="primary" (click)="openDialog(formula)">Crear Producto</button>
+        <button mat-button color="accent">Modificar</button>
+      </mat-card-actions>
     </mat-card>
-</div>
+  </div>
+  

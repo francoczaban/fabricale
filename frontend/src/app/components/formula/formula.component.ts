@@ -9,14 +9,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs'
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-formula',
   standalone: true,
   imports: [
     ReactiveFormsModule, CommonModule, MatInputModule,
-    MatFormFieldModule, MatSelectModule, MatIconModule, 
-    MatDividerModule, MatButtonModule
+    MatFormFieldModule, MatSelectModule, MatIconModule,
+    MatDividerModule, MatButtonModule, MatTabsModule, MatCardModule
   ],
   templateUrl: './formula.component.html',
   styleUrl: './formula.component.css'

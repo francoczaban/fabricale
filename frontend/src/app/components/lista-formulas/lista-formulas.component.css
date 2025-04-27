@@ -1,13 +1,71 @@
 .formula-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 30px;
+  }
+  
+  .formula-card {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-
-.example-card {
-    width: 300px;
-}
-
-.example-card-footer {
-    text-align: center;
-}
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    min-height: 280px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .formula-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .formula-header {
+    margin-bottom: 10px;
+  }
+  
+  .formula-title {
+    margin: 0;
+    font-size: 20px;
+    color: #0a66c2;
+    font-weight: 600;
+  }
+  
+  .formula-description {
+    margin: 5px 0 10px;
+    color: #555;
+    font-size: 14px;
+  }
+  
+  .formula-details {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .material-section h5 {
+    margin: 10px 0 5px;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  
+  ul li {
+    margin-bottom: 4px;
+  }
+  
+  .formula-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+  
+  button[mat-button] {
+    font-size: 13px;
+    text-transform: none;
+  }
+  
