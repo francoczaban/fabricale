@@ -181,8 +181,9 @@ exports.eliminarMaterialCompuesto = async(req, res) => {
             const material = await Material.findById(item.material._id);
 
             if (material) {
+                var cantidadFinal = item.cantidad * materialCompuesto.cantidad; 
                 const cantidadRevertida = convertirUnidades(
-                    item.cantidad,
+                    cantidadFinal,
                     item.unidadMedida,
                     material.unidadMedida
                 );

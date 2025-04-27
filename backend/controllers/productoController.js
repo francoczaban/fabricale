@@ -175,7 +175,8 @@ exports.eliminarProducto = async(req, res) => {
                 throw new Error(`Material con ID ${item.material} no encontrado`);
             }
 
-            const cantidadUsadaEnInventarioUnidad = convertirUnidades(item.cantidad, item.unidadMedida, material.unidadMedida);
+            var cantidadFinal = item.cantidad * producto.cantidad;
+            const cantidadUsadaEnInventarioUnidad = convertirUnidades(cantidadFinal, item.unidadMedida, material.unidadMedida);
             console.log('materiales usados: ', material);
             console.log('Item: ', item);
 
@@ -205,8 +206,9 @@ exports.eliminarProducto = async(req, res) => {
             if (!materialCompuesto) {
                 throw new Error(`Material Compuesto con ID ${item.materialCompuesto} no encontrado`);
             }
-
-            const unidadCompuesto = convertirUnidades(item.cantidad, item.unidadMedida, materialCompuesto.unidadMedida);
+            
+            var cantidadFinalCompuestos = item.cantidad * producto.cantidad;
+            const unidadCompuesto = convertirUnidades(cantidadFinalCompuestos, item.unidadMedida, materialCompuesto.unidadMedida);
 
             if (materialCompuesto.cantidad < unidadCompuesto) {
                 throw new Error(
