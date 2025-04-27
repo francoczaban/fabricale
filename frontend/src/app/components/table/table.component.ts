@@ -11,18 +11,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   standalone: true,
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [MatTableModule, MatPaginatorModule, CommonModule, MatInputModule, MatFormFieldModule, MatSortModule]
+  imports: [MatTableModule, MatIcon, MatPaginatorModule, CommonModule, MatInputModule, MatFormFieldModule, MatSortModule]
 })
 export class TableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [];
-  
+
   tableColumns: TableColumn[] = [];
   @Output() editRow = new EventEmitter<any>();
   @Output() deleteRow = new EventEmitter<any>();
@@ -36,7 +37,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() set columns(columns: TableColumn[]) {
     this.tableColumns = columns;
     this.displayedColumns = this.tableColumns.map(col => col.def);
-  
+
     // Agregar la columna de acciones si no está incluida
     if (!this.displayedColumns.includes('accion')) {
       this.displayedColumns.push('accion');
@@ -48,7 +49,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   constructor(private dialog: MatDialog) { } // Inyectar MatDialog
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -93,7 +94,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
       data: { name: 'eliminar' } // Pasar datos si es necesario
-    });    
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -105,6 +106,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   onAgregar(row: any): void {
     this.addMaterialRow.emit(row);
   }
-  
+
 
 }

@@ -1,107 +1,66 @@
-.mat-column-nombreMateriaDestino {
-    text-align: center;
-    overflow: visible;
+.table-container {
+  width: 100%;
+  margin: 20px auto;
 }
 
-.mat-column-nombreMateria {
-    text-align: center;
-    overflow: visible;
+.filter-input {
+  width: 300px;
+  margin-bottom: 15px;
 }
 
-.mat-column-tipoClase {
-    text-align: center;
-    overflow: visible;
+.mat-sort-header {
+  color: black;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-.mat-column-fechaCreacion {
-    text-align: center;
-    overflow: visible;
+.custom-table-wrapper {
+  overflow-x: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.mat-column-fechaModificacion {
-    text-align: center;
-    overflow: visible;
+.custom-table {
+  width: 100%;
+  min-width: 800px;
 }
 
-.mat-header-cell:first-of-type {
-    padding: 0;
+mat-header-cell,
+mat-cell {
+  text-align: center;
+  font-size: 14px;
+  padding: 15px;
 }
 
-.mat-header-cell {
-    font-size: small;
-    font-weight: bolder;
-    color: #09133f;
+mat-header-cell {
+  background-color: #3f51b5;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
 }
 
-.mate-cell {
-    display: flex;
-    place-content: center;
-    padding: 0;
-    justify-content: center;
+mat-row:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.mat-cell:first-of-type {
-    padding: 0;
+.material-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.mat-header-cell,
-.mat-column-roleId,
-.mat-column-inscripcionClaseId,
-.mat-column-estado,
-.mat-column-claseId,
-.mat-column-codigoClase,
-.mat-column-claseDestino,
-.mat-column-tipoClase,
-.mat-column-nombreMateria,
-.mat-column-nombreMateriaDestino,
-.mat-column-fechaCreacion,
-.mat-column-fechaModificacion,
-.mat-column-sincronizar,
-.mat-column-courseOfferingId,
-.mat-column-rol,
-.mat-column-id,
-.mat-column-name,
-.mat-column-periodo,
-.mat-column-tipo,
-.mat-column-accion {
-    place-content: center;
-    justify-content: center;
+.material-list li {
+  text-align: left;
+  font-size: 13px;
 }
 
-.mat-column-accion {
-    content: "\f2b4";
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-
-/* Step 1: Common Properties: All required to make icons render reliably */
-
-.icon::before {
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-}
-
-
-/* Step 2: Reference Individual Icons */
-
-.login::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    content: "\f007";
-}
-
-
-/* Note: Make sure to include the correct weight and unicode value for the icon */
-
-.tps::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 400;
-    content: "\f1ea";
-}
-
-.tabla {
-    width: 70%;
-    place-self: center;
+mat-icon {
+  font-size: 20px;
 }
