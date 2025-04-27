@@ -1,34 +1,68 @@
-.navbar {
+.sidebar {
+  background-color: #2e2e2e;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  background-color: #5d6063;
-  padding: 20px 20px;
   color: white;
-  opacity: 80%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  width: 230px;
 }
 
-.navbar-links {
+.logo {
+  padding: 25px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  color: #90caf9;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-links {
   list-style: none;
-  display: flex;
-  gap: 50px;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
-.navbar-links li a {
-  text-decoration: none;
+.sidebar-links li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar-links li:hover {
+  background-color: #424242;
+}
+
+.sidebar-links mat-icon {
+  font-size: 22px;
+}
+
+.sidebar-links span {
+  font-size: 15px;
+}
+
+.sidebar-footer {
+  padding: 15px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.logout-btn {
   color: white;
   cursor: pointer;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.navbar-links li a:hover {
-  color: #90caf9;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
 }
 
 .logout-btn:hover {
   color: #90caf9;
-  cursor: pointer;
 }
