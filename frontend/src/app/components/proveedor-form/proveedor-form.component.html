@@ -1,46 +1,37 @@
-<form class="form-container" (ngSubmit)="addProveedor()">
-  <h3>Crear Proveedor</h3>
+<form class="materialesform" (ngSubmit)="addProveedor()">
+  <h3 class="titulo-seccion">Crear Proveedor</h3>
 
-  <!-- Nombre del proveedor -->
-  <mat-form-field class="full-width">
-    <mat-label>Nombre del proveedor</mat-label>
-    <input matInput [(ngModel)]="proveedor.nombre" name="nombre" required />
-  </mat-form-field>
+  <mat-card class="card-seccion">
+    <div class="container">
+      <div class="col1">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre del proveedor</mat-label>
+          <input matInput [(ngModel)]="proveedor.nombre" name="nombre" placeholder="Ingrese el nombre del proveedor" required>
+        </mat-form-field>
 
-  <!-- Dirección del proveedor -->
-  <mat-form-field class="full-width">
-    <mat-label>Dirección</mat-label>
-    <input
-      matInput
-      [(ngModel)]="proveedor.direccion"
-      name="direccion"
-      required
-    />
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput [(ngModel)]="proveedor.direccion" name="direccion" placeholder="Ingrese la dirección" required>
+        </mat-form-field>
+      </div>
 
-  <!-- Email del proveedor -->
-  <mat-form-field class="full-width">
-    <mat-label>Email</mat-label>
-    <input matInput [(ngModel)]="proveedor.email" name="email" type="email" />
-  </mat-form-field>
+      <div class="col2">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="proveedor.email" name="email" type="email" placeholder="Ingrese el email" required>
+        </mat-form-field>
 
-  <!-- Telefono del proveedor -->
-  <mat-form-field class="full-width">
-    <mat-label>Teléfono</mat-label>
-    <input
-      matInput
-      [(ngModel)]="proveedor.telefono"
-      name="telefono"
-      type="tel"
-    />
-  </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput [(ngModel)]="proveedor.telefono" name="telefono" type="tel" placeholder="Ingrese el teléfono" required> 
+        </mat-form-field>
+      </div>
+    </div>
 
-  <div class="actions">
-    <button mat-raised-button color="primary" type="submit">
-      Guardar Proveedor
-    </button>
-    <button mat-raised-button color="warn" type="button" (click)="resetForm()">
-      Limpiar
-    </button>
-  </div>
+    <div class="acciones-finales">
+      <button mat-flat-button color="primary" type="submit">
+        Guardar
+      </button>
+    </div>
+  </mat-card>
 </form>

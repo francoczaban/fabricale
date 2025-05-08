@@ -12,6 +12,7 @@
   color: black;
   font-weight: 500;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .custom-table-wrapper {
@@ -62,5 +63,38 @@ mat-row:nth-child(even) {
 }
 
 mat-icon {
-  font-size: 20px;
+  font-size: 16px; /* Reducido el tamaño del icono */
+  color: white; /* Aseguramos que el color del icono sea blanco */
+}
+
+/* Estilos para los botones de acción con los círculos de colores */
+.edit-button,
+.delete-button,
+.add-button {
+  border-radius: 50%;  /* Esto hace que el fondo sea redondeado */
+  width: 40px; /* Ajusta el tamaño del botón */
+  height: 40px; /* Ajusta el tamaño del botón */
+  display: flex;
+  align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
+  justify-content: center;  /* Asegura que el contenido esté centrado horizontalmente */
+  padding: 5px;  /* Ajuste del padding para mantener los iconos centrados */
+}
+
+.edit-button {
+  background-color: #ffeb3b; /* Amarillo */
+}
+
+.delete-button {
+  background-color: #f44336; /* Rojo */
+}
+
+.add-button {
+  background-color: #4caf50; /* Verde */
+}
+
+/* Para asegurar que el icono esté perfectamente centrado */
+.edit-button .mat-icon,
+.delete-button .mat-icon,
+.add-button .mat-icon {
+  font-size: 18px;  /* Ajuste del tamaño del icono */
 }

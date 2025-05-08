@@ -30,15 +30,15 @@
   
         <!-- Columna de Acciones -->
         <ng-container matColumnDef="accion">
-          <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let row" class="action-buttons">
-            <button mat-icon-button color="primary" (click)="onEdit(row)">
+            <button mat-icon-button color="primary" (click)="onEdit(row)" class="edit-button">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="onDelete(row)">
+            <button mat-icon-button color="warn" (click)="onDelete(row)" class="delete-button">
               <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button color="accent" (click)="onAgregar(row)">
+            <button mat-icon-button color="accent" (click)="onAgregar(row)" class="add-button">
               <mat-icon>add_circle</mat-icon>
             </button>
           </mat-cell>

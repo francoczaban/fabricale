@@ -1,3 +1,4 @@
+// material model
 const mongoose = require("mongoose");
 
 const materialSchema = new mongoose.Schema({
@@ -5,9 +6,11 @@ const materialSchema = new mongoose.Schema({
     codigo: { type: String, required: true, unique: true },
     cantidad: { type: Number, required: true },
     unidadMedida: { type: String, required: true },
-    precio: { type: Number, default: 0 }, // Campo no requerido con valor inicial 0
+    precio: { type: Number, default: 0 },
     alertaStock: { type: Number, default: 1 },
-    tipo: { type: String, default: 'Material' }
+    tipo: { type: String, default: 'Material' },
+    proveedor: { type: mongoose.Schema.Types.ObjectId, ref: 'Proveedor' },  // Relación con el proveedor
+    proveedorName: { type: String, default: ''}
 });
 
 module.exports = mongoose.model("Material", materialSchema);

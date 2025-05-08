@@ -1,43 +1,58 @@
 <form class="materialesform" (ngSubmit)="addMaterial()">
-  <h3>Crear Material</h3>
+  <h3 class="titulo-seccion">Crear Material</h3>
 
-  <div class="container">
-    <div class="col1">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Nombre</mat-label>
-        <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre" placeholder="Ingrese el nombre" required>
-      </mat-form-field>
+  <mat-card class="card-seccion col3">
+    <!-- <h2 class="titulo-card">Detalles Generales</h2> -->
+    <div class="container">
+      <div class="col1">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="nombre" name="nombre" [(ngModel)]="material.nombre" placeholder="Ingrese el nombre" required>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Código</mat-label>
-        <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo" placeholder="Ingrese el código" required>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Código</mat-label>
+          <input matInput id="codigo" name="codigo" [(ngModel)]="material.codigo" placeholder="Ingrese el código" required>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Cantidad</mat-label>
-        <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad" placeholder="Ingrese la cantidad" required>
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" id="cantidad" name="cantidad" [(ngModel)]="material.cantidad" placeholder="Ingrese la cantidad" required>
+        </mat-form-field>
+      </div>
+
+      <div class="col2">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Unidad de Medida</mat-label>
+          <mat-select [(ngModel)]="material.unidadMedida" name="unidadMedida" required>
+            <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio" placeholder="Ingrese el precio">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Alerta Stock</mat-label>
+          <input matInput type="number" id="alertaStock" name="alertaStock" [(ngModel)]="material.alertaStock" placeholder="Ingrese la alerta">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Proveedor</mat-label>
+          <mat-select [(ngModel)]="material.proveedor" (selectionChange)="onProveedorSelect($event.value)" name="proveedor" required>
+            <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor._id">{{ proveedor.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
     </div>
 
-    <div class="col2">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Unidad de Medida</mat-label>
-        <mat-select [(ngModel)]="material.unidadMedida" name="unidadMedida" required>
-          <mat-option *ngFor="let unidad of unidadesMedida" [value]="unidad">{{ unidad }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Precio</mat-label>
-        <input matInput type="number" id="precio" name="precio" [(ngModel)]="material.precio" placeholder="Ingrese el precio">
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Alerta Stock</mat-label>
-        <input matInput type="number" id="alertaStock" name="alertaStock" [(ngModel)]="material.alertaStock" placeholder="Ingrese la alerta">
-      </mat-form-field>
+    <div class="acciones-finales">
+      <button mat-flat-button color="primary" type="submit">
+        Guardar Material
+      </button>
     </div>
-  </div>
-
-  <button mat-flat-button class="submit-button" type="submit">Guardar Material</button>
+  </mat-card>
 </form>

@@ -1,5 +1,5 @@
 .contenido-principal {
-    padding: 30px 40px 40px 280px; 
+    padding: 0  0 40px 10px; 
     background-color: #f5f6fa;
     min-height: 100vh;
   }
@@ -8,7 +8,7 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 30px;
-    color: #333;
+    color: chocolate !important;
   }
   
   .card-seccion {
@@ -61,4 +61,5 @@
     justify-content: center;
     padding-top: 20px;
   }
+  
   

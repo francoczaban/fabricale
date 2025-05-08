@@ -21,7 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs'
     FormsModule, ReactiveFormsModule, CommonModule,
     MatInputModule, MatFormFieldModule, MatSelectModule,
     MatIconModule, MatDividerModule, MatButtonModule, MatCard, MatTabsModule
-  ]
+  ],
+  styleUrl: './material-compuesto-form.component.css',
 })
 export class MaterialCompuestoFormComponent implements OnInit {
   materialCompuestoForm: FormGroup;

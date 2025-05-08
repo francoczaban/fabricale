@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { ProveedorService } from '../../services/proveedor.service'; // Importar el servicio
+import { MatCardMdImage, MatCardModule } from '@angular/material/card';
 
 @Component({
   standalone: true,
@@ -22,7 +23,9 @@ import { ProveedorService } from '../../services/proveedor.service'; // Importar
     MatDividerModule,
     MatButtonModule,
     MatSelectModule,
+    MatCardModule,
   ],
+  styleUrl: './proveedor-form.component.css'
 })
 export class ProveedorFormComponent {
   unidadesMedida: string[] = ['KG', 'LT', 'GR', 'CC']; // Lista simple de unidades

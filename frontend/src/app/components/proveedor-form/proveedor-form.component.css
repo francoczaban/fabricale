@@ -1,18 +1,49 @@
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 400px;
-    margin: auto;
-  }
-  
-  .full-width {
-    width: 100%;
-  }
-  
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-  }
-  
+.materialesform {
+  max-width: 900px;
+  margin: 10vh auto;
+  padding: 30px;
+  background-color: #f5f6fa;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.materialesform h3 {
+  text-align: center;
+  color: chocolate;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  align-self: center;
+  width: 90%;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.col1, .col2 {
+  flex: 1;
+  min-width: 300px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field.full-width {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+
+.acciones-finales {
+  align-self: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+

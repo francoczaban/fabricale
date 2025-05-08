@@ -77,7 +77,8 @@ export class ListadoComponent implements OnInit {
   setTableColumns() {
     this.columnasMateriales = [
       { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
-      { label: 'Código', def: 'codigo', dataKey: 'codigo' },
+      { label: 'Proveedor', def: 'proveedorName', dataKey: 'proveedorName'},
+      // { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Unidad de Medida', def: 'unidadMedida', dataKey: 'unidadMedida' },
       { label: 'Costo', def: 'precio', dataKey: 'precio' },
