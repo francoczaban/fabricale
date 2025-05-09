@@ -1,6 +1,4 @@
 const Proveedor = require('../models/Proveedor');
-const Material = require('../models/Material');
-const Purchase = require('../models/purchase');
 const logger = require("../utils/logger");
 
 exports.createProveedor = async (req, res) => {  

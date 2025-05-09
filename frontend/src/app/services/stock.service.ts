@@ -34,10 +34,9 @@ export class StockService {
 
   getStockByMaterial(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/materiales/${id}/stock`);
-  } 
+  }
 
   // Métodos para materialesCompuestos
-
   addMaterialCompuesto(materialCompuesto: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/materiales-compuestos`, materialCompuesto);
   }
@@ -54,7 +53,6 @@ export class StockService {
     return this.http.delete(`${this.apiUrl}/materiales-compuestos/${id}`);
   }
 
-
   // Métodos para productos
   getProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/productos`);
@@ -70,17 +68,16 @@ export class StockService {
 
   deleteProducto(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/productos/${id}`);
-}
+  }
 
-// Métodos para formulas
+  // Métodos para formulas
+  addFormula(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/formula`, data);
+  }
 
-addFormula(data: any): Observable<any>{
-  return this.http.post(`${this.apiUrl}/formula`, data);
-}
-
-getFormulas(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/formula`);
-}
+  getFormulas(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/formula`);
+  }
 
 
 }

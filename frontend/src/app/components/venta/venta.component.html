@@ -1,0 +1,34 @@
+<form [formGroup]="ventaForm" class="contenido-principal" (ngSubmit)="onSubmit()">
+    <h3 class="titulo-seccion">Registrar Venta</h3>
+  
+    <mat-card class="card-seccion">
+      <h2 class="titulo-card">Detalles de la Venta</h2>
+  
+      <div class="fila">
+        <mat-form-field class="campo">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="productoId">
+            <mat-option *ngFor="let producto of productos$ | async" [value]="producto._id">
+              {{ producto.nombre }} (Stock: {{ producto.cantidad }} {{ producto.unidadMedida }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field class="campo">
+          <mat-label>Cantidad Vendida</mat-label>
+          <input matInput type="number" formControlName="cantidadVendida" min="1">
+        </mat-form-field>
+  
+        <mat-form-field class="campo">
+          <mat-label>Precio Unitario</mat-label>
+          <input matInput type="number" formControlName="precioUnitario" min="0">
+        </mat-form-field>
+      </div>
+  
+      <div class="acciones-finales">
+        <button mat-flat-button color="primary" type="submit" [disabled]="ventaForm.invalid">
+          Registrar Venta
+        </button>
+      </div>
+    </mat-card>
+  </form>

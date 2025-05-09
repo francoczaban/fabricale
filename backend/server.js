@@ -6,13 +6,12 @@ const materialRoutes = require("./routes/materialRoutes");
 const formulaRoutes = require("./routes/formulaRoutes");
 const materialCompuestoRoutes = require("./routes/materialCompuestoRoutes");
 const productoRoutes = require("./routes/productoRoutes");
-const proveedorRoutes = require("./routes/proveedorRoutes"); // NUEVO
+const proveedorRoutes = require("./routes/proveedorRoutes");
+const ventasRoutes = require("./routes/ventasRoutes");
 const logger = require("./utils/logger");
 const auth = require('./routes/auth');
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require("./utils/swaggerConfig"); // Ajusta la ruta si es necesario
-
-// Agrega la ruta para la documentación Swagger
+const swaggerSpec = require("./utils/swaggerConfig");
 
 
 const app = express();
@@ -34,6 +33,7 @@ app.use("/api/materiales", materialRoutes);
 app.use('/api/register', auth);
 app.use('/api/proveedores', proveedorRoutes);
 app.use('/api/formula', formulaRoutes);
+app.use('/api/ventas', ventasRoutes);
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -41,12 +41,10 @@ mongoose.connect('mongodb://localhost:27017/fabrica', {})
     .then(() => console.log('Conectado a MongoDB!!!'))
     .catch(err => console.error('Error de conexión:', err));
 
-// Rutas
 app.get("/", (req, res) => {
     res.send("API de Gestión de Stock de Fábrica");
 });
 
-// Escuchar en el puerto especificado
 app.listen(PORT, () => {
     logger.info(`Servidor escuchando en http://localhost:${PORT}`);
 });
