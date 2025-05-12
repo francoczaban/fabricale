@@ -4,38 +4,42 @@ const logger = require("../utils/logger");
 
 exports.registrarVenta = async (req, res) => {
     try {
-        const { productoId, cantidadVendida, precioUnitario } = req.body;
+        const { productosVendidos } = req.body;
 
-        // Buscar el producto a vender
-        const producto = await Producto.findById(productoId);
-        if (!producto) {
-            throw new Error("Producto no encontrado");
+        if (!productosVendidos || !Array.isArray(productosVendidos) || productosVendidos.length === 0) {
+            throw new Error("Se requiere al menos un producto para registrar la venta.");
         }
 
-        // Verificar que haya suficiente stock
-        if (producto.cantidad < cantidadVendida) {
-            throw new Error(`Stock insuficiente para el producto ${producto.nombre}. Disponible: ${producto.cantidad}, requerido: ${cantidadVendida}`);
+        let totalVenta = 0;
+
+        // Validar productos y descontar stock
+        for (const item of productosVendidos) {
+            const { productoId, cantidadVendida, precioUnitario } = item;
+
+            const producto = await Producto.findById(productoId);
+            if (!producto) {
+                throw new Error(`Producto no encontrado con ID: ${productoId}`);
+            }
+
+            if (producto.cantidad < cantidadVendida) {
+                throw new Error(`Stock insuficiente para ${producto.nombre}. Disponible: ${producto.cantidad}, requerido: ${cantidadVendida}`);
+            }
+
+            // Descontar stock
+            producto.cantidad -= cantidadVendida;
+            await producto.save();
+
+            // Calcular total
+            totalVenta += cantidadVendida * precioUnitario;
         }
 
-        // Calcular el total de la venta
-        const totalVenta = cantidadVendida * precioUnitario;
-
-        // Crear la venta
+        // Crear y guardar la venta
         const nuevaVenta = new Venta({
-            productoId,
-            cantidadVendida,
-            precioUnitario,
-            total: totalVenta,
+            productosVendidos,
+            total: totalVenta
         });
 
-        // Guardar la venta
         await nuevaVenta.save();
-
-        // Descontar el stock del producto
-        producto.cantidad -= cantidadVendida;
-        await producto.save();
-
-        logger.info(`Venta registrada exitosamente para el producto: ${producto.nombre}`);
         res.status(201).json(nuevaVenta);
     } catch (error) {
         logger.error(`Error al registrar venta: ${error.stack}`);
@@ -43,24 +47,10 @@ exports.registrarVenta = async (req, res) => {
     }
 };
 
-// exports.obtenerVentas = async (req, res) => {
-//     try {
-//         // Obtener todas las ventas
-//         const ventas = await Venta.find()
-//             .populate("productoId", "nombre codigo cantidad unidadMedida")  // Rellenar la información del producto
-//             .exec();
-
-//         res.status(200).json(ventas);
-//     } catch (error) {
-//         logger.error(`Error al obtener ventas: ${error.stack}`);
-//         res.status(500).json({ error: error.message });
-//     }
-// };
-
 
 exports.obtenerVentas = async (req, res) => {
     try {
-        const ventas = await Venta.find();
+        const ventas = await Venta.find().populate('productosVendidos.productoId');
         res.json(ventas);
     } catch (error) {
         logger.error(`Error al obtener ventas: ${error.message}`);

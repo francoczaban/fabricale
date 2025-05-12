@@ -37,33 +37,49 @@ export class VentaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Inicializamos el formulario
     this.ventaForm = this.fb.group({
+      productosVendidos: this.fb.array([this.crearProductoGrupo()])
+    });
+  
+    this.productos$ = this.stockService.getProductos();
+  }
+  
+  crearProductoGrupo(): FormGroup {
+    return this.fb.group({
       productoId: ['', Validators.required],
       cantidadVendida: ['', [Validators.required, Validators.min(1)]],
       precioUnitario: ['', [Validators.required, Validators.min(0)]],
     });
-
-    // Obtenemos los productos disponibles
-    this.productos$ = this.stockService.getProductos();
   }
-
-  // Método para manejar la venta
-  onSubmit(): void {
-    if (this.ventaForm.valid) {
-      const ventaData = this.ventaForm.value;
-      this.ventasService.addVenta(ventaData).subscribe(
-        (response) => {
-          console.log('Venta registrada con éxito', response);
-          // Limpiar formulario o redirigir
-          this.ventaForm.reset();
-        },
-        (error) => {
-          console.error('Error al registrar la venta', error);
-        }
-      );
-    } else {
-      console.log('Formulario inválido');
+  
+  get productosVendidos(): FormArray {
+    return this.ventaForm.get('productosVendidos') as FormArray;
+  }
+  
+  agregarProducto(): void {
+    this.productosVendidos.push(this.crearProductoGrupo());
+  }
+  
+  quitarProducto(index: number): void {
+    if (this.productosVendidos.length > 1) {
+      this.productosVendidos.removeAt(index);
     }
   }
+  
+  onSubmit(): void {
+    if (this.ventaForm.valid) {
+      const data = this.ventaForm.value;
+      this.ventasService.addVenta(data).subscribe({
+        next: res => {
+          console.log("Venta exitosa", res);
+          this.ventaForm.reset();
+          this.ventaForm.setControl('productosVendidos', this.fb.array([this.crearProductoGrupo()]));
+        },
+        error: err => {
+          console.error("Error al registrar venta", err);
+        }
+      });
+    }
+  }
+  
 }

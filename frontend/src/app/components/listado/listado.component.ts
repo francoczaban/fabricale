@@ -10,13 +10,15 @@ import { DataTransferService } from '../../services/data-transfer.service';
 import { MatIconModule } from '@angular/material/icon';
 import { TablaExpandibleComponent } from "../tabla-expandible/tabla-expandible.component";
 import { DatePipe } from '@angular/common';
+import { MatCard } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs'
 
 @Component({
   standalone: true,
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrl: './listado.component.css',
-  imports: [CommonModule, RouterModule, TableComponent, MatIconModule, TablaExpandibleComponent],
+  imports: [CommonModule, RouterModule, TableComponent, MatIconModule, TablaExpandibleComponent, MatCard, MatTabsModule],
   providers: [DatePipe]
 })
 export class ListadoComponent implements OnInit {
@@ -38,9 +40,9 @@ export class ListadoComponent implements OnInit {
   arrayNotificaciones: any[] = [];
 
   constructor(
-    private stockService: StockService, 
+    private stockService: StockService,
     private router: Router,
-    private datePipe: DatePipe, 
+    private datePipe: DatePipe,
     private ventasService: VentasService,
     private dataTransfer: DataTransferService) { }
 
@@ -49,7 +51,7 @@ export class ListadoComponent implements OnInit {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
     this.cargarProductos();
-    this.cargarFormulas();  
+    this.cargarFormulas();
     this.cargarVentas();
   }
 
@@ -60,7 +62,7 @@ export class ListadoComponent implements OnInit {
         this.arrayNotificaciones.push(element);
       }
     });
-    this.dataTransfer.sendData(this.contador, this.arrayNotificaciones)  
+    this.dataTransfer.sendData(this.contador, this.arrayNotificaciones)
   }
 
   editarMaterial(material: any): void {
@@ -84,11 +86,15 @@ export class ListadoComponent implements OnInit {
     this.router.navigate(['/agregar-cantidades']);
   }
 
+  agregarMaterialCompuesto(materialCompuesto: any): void {
+    this.dataTransfer.setData(materialCompuesto);
+    this.router.navigate(['/agregar-cantidaes']);
+  }
+
   setTableColumns() {
     this.columnasMateriales = [
-      { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
-      { label: 'Proveedor', def: 'proveedorName', dataKey: 'proveedorName'},
-      // { label: 'Código', def: 'codigo', dataKey: 'codigo' },
+      { label: 'Material', def: 'nombre', dataKey: 'nombre' },
+      { label: 'Proveedor', def: 'proveedorName', dataKey: 'proveedorName' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Unidad de Medida', def: 'unidadMedida', dataKey: 'unidadMedida' },
       { label: 'Costo', def: 'precio', dataKey: 'precio' },
@@ -96,7 +102,7 @@ export class ListadoComponent implements OnInit {
     ];
 
     this.columnasMaterialesCompuestos = [
-      { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
+      { label: 'Material Compuesto', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' }, // Detalles de materiales usados
@@ -104,7 +110,7 @@ export class ListadoComponent implements OnInit {
     ];
 
     this.columnasProductos = [
-      { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
+      { label: 'Producto', def: 'nombre', dataKey: 'nombre' },
       { label: 'Código', def: 'codigo', dataKey: 'codigo' },
       { label: 'Cantidad', def: 'cantidad', dataKey: 'cantidad' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
@@ -113,26 +119,19 @@ export class ListadoComponent implements OnInit {
     ];
 
     this.columnasFormulas = [
-      { label: 'Nombre', def: 'nombre', dataKey: 'nombre' },
+      { label: 'Formula', def: 'nombre', dataKey: 'nombre' },
       { label: 'Materiales', def: 'materialesUsados', dataKey: 'materialesUsados' },
       { label: 'Materiales Compuestos', def: 'materialesCompuestosUsados', dataKey: 'materialesCompuestosUsados' }, // Detalles de materiales compuestos usados
     ];
 
-    // this.columnasVentas = [
-    //   { label: 'Producto', def: 'productoId', dataKey: 'productoId' },
-    //   { label: 'Cantidad', def: 'cantidadVendida', dataKey: 'cantidadVendida' },
-    //   { label: 'Precio U.', def: 'precioUnitario', dataKey: 'precioUnitario' }, // Detalles de materiales compuestos usados
-    //   { label: 'Total', def: 'total', dataKey: 'total' },
-    //   { label: 'Fecha Venta', def: 'fechaVenta', dataKey: 'fechaVenta' },
-    // ];
-
     this.columnasVentas = [
-      { label: 'Producto', def: 'productoNombre', dataKey: 'productoNombre' }, // Cambiamos de productoId a productoNombre
-      { label: 'Cantidad', def: 'cantidadVendida', dataKey: 'cantidadVendida' },
-      { label: 'Precio U.', def: 'precioUnitario', dataKey: 'precioUnitario' },
+      { label: 'Venta', def: 'productosVendidos', dataKey: 'productosVendidos' },
+      { label: 'Cantidad', def: 'productosVendidos_cantidad', dataKey: 'productosVendidos' },
+      { label: 'Precio U.', def: 'productosVendidos_precio', dataKey: 'productosVendidos' },
       { label: 'Total', def: 'total', dataKey: 'total' },
-      { label: 'Fecha Venta', def: 'fechaVenta', dataKey: 'fechaVenta' }, // Asegúrate de que la fecha esté formateada
+      { label: 'Fecha Venta', def: 'fechaVenta', dataKey: 'fechaVenta' }
     ];
+    
   }
 
   cargarMateriales() {
@@ -187,15 +186,28 @@ export class ListadoComponent implements OnInit {
     this.ventasService.getVentas().subscribe({
       next: (data) => {
         this.dataSourceVentas = data.map((venta: any) => {
-          // Usamos el nombre del producto en lugar del ID
-          const producto = this.dataSourceProductos.find(p => p._id === venta.productoId);
-          if (producto) {
-            venta.productoNombre = producto.nombre;
+          // Si es venta simple (caso viejo)
+          if (venta.productoId) {
+            const producto = this.dataSourceProductos.find(p => p._id === venta.productoId);
+            venta.productoNombre = producto ? producto.nombre : venta.productoId;
           }
-          // Formateamos la fecha
+
+          // Si es venta compuesta (nueva)
+          if (venta.productosVendidos?.length) {
+            venta.productosVendidos = venta.productosVendidos.map((item: any) => {
+              const producto = this.dataSourceProductos.find(p => p._id === item.productoId._id || p._id === item.productoId);
+              return {
+                ...item,
+                nombre: producto?.nombre || item.productoId.nombre || 'Desconocido'
+              };
+            });
+          }
+
           venta.fechaVenta = this.datePipe.transform(venta.fechaVenta, 'yyyy-MM-dd');
           return venta;
         });
+
+        console.log("VENTAS: ", this.dataSourceVentas);
       },
       error: (error) => {
         console.error('Error al obtener las ventas:', error);

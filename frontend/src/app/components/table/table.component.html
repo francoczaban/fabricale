@@ -1,55 +1,69 @@
 <div class="table-container">
-    <mat-form-field appearance="outline" class="filter-input">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
-    </mat-form-field>
-  
-    <div class="custom-table-wrapper">
-      <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
-  
-        <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
-              <ul class="material-list">
-                <li *ngFor="let item of row[column.dataKey]">
-                  <span *ngIf="item.material">
-                    {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
-                  </span>
-                  <span *ngIf="item.materialCompuesto">
-                    {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
-                  </span>
-                </li>
-              </ul>
-            </ng-container>
-            <ng-template #singleValue>
-              {{ formatNumber(row[column.dataKey]) }}
-            </ng-template>
-          </mat-cell>
-        </ng-container>
-  
-        <!-- Columna de Acciones -->
-        <ng-container matColumnDef="accion">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let row" class="action-buttons">
-            <button mat-icon-button color="primary" (click)="onEdit(row)" class="edit-button">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="onDelete(row)" class="delete-button">
-              <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" (click)="onAgregar(row)" class="add-button">
-              <mat-icon>add_circle</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-  
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-  
-      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-      </mat-paginator>
-    </div>
+  <mat-form-field appearance="outline" class="filter-input">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ej: Nombre" #input>
+  </mat-form-field>
+
+  <div class="custom-table-wrapper">
+    <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
+
+      <ng-container *ngFor="let column of tableColumns" [matColumnDef]="column.def">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column.label }} </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <ng-container *ngIf="isArray(row[column.dataKey]); else singleValue">
+            <ul class="material-list">
+              <li *ngFor="let item of row[column.dataKey]">
+                <!-- Para columnas de venta -->
+                <ng-container *ngIf="column.label === 'Venta'">
+                  {{ item.nombre }}
+                </ng-container>
+                <ng-container *ngIf="column.label === 'Cantidad'">
+                  {{ formatNumber(item.cantidadVendida) }}
+                </ng-container>
+                <ng-container *ngIf="column.label === 'Precio U.'">
+                  {{ formatNumber(item.precioUnitario) }}
+                </ng-container>
+          
+                <!-- Material simple -->
+                <ng-container *ngIf="item.material && column.label !== 'Venta' && column.label !== 'Cantidad' && column.label !== 'Precio U.'">
+                  {{ item.material.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
+                </ng-container>
+          
+                <!-- Material compuesto -->
+                <ng-container *ngIf="item.materialCompuesto && column.label !== 'Venta' && column.label !== 'Cantidad' && column.label !== 'Precio U.'">
+                  {{ item.materialCompuesto.nombre }} - {{ formatNumber(item.cantidad) }} - {{ item.unidadMedida }}
+                </ng-container>
+              </li>
+            </ul>
+          </ng-container>
+          
+          <ng-template #singleValue>
+            {{ formatNumber(row[column.dataKey]) }}
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Columna de Acciones -->
+      <ng-container matColumnDef="accion">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row" class="action-buttons">
+          <button mat-icon-button color="primary" (click)="onEdit(row)" class="edit-button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="onDelete(row)" class="delete-button">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="onAgregar(row)" class="add-button">
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+    </mat-paginator>
   </div>
-  
+</div>

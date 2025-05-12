@@ -1,10 +1,38 @@
-<h4>Materiales</h4>
-<app-table class="table" [data]="dataSourceMateriales" [columns]="columnasMateriales" (editRow)="editarMaterial($event)" (deleteRow)="deleteMaterial($event)" (addMaterialRow)="agregarMaterial($event)"></app-table>
-<h4>Materiales Compuestos</h4>
-<app-table class="table" [data]="dataSourceMaterialesCompuestos" [columns]="columnasMaterialesCompuestos" (editRow)="editarMaterialCompuesto($event)" (deleteRow)="deleteMaterialCompuesto($event)"></app-table>
-<h4>Productos</h4>
-<app-table class="table" [data]="dataSourceProductos" [columns]="columnasProductos" (editRow)="editarProducto($event)" (deleteRow)="deleteProducto($event)"></app-table>
-<h4>Formulas</h4>
-<app-table class="table" [data]="dataSourceFormulas" [columns]="columnasFormulas"></app-table>
-<h4>Ventas</h4>
-<app-table class="table" [data]="dataSourceVentas" [columns]="columnasVentas"></app-table>
+<div class="tabalas">
+    <mat-tab-group>
+        <mat-tab label="Materiales">
+            <mat-card class="card-seccion">
+                <app-table class="table" [data]="dataSourceMateriales" [columns]="columnasMateriales"
+                    (editRow)="editarMaterial($event)" (deleteRow)="deleteMaterial($event)"
+                    (addMaterialRow)="agregarMaterial($event)"></app-table>
+            </mat-card>
+        </mat-tab>
+
+        <mat-tab label="Materiales Compuestos">
+            <mat-card class="card-seccion">
+                <app-table class="table" [data]="dataSourceMaterialesCompuestos"
+                    [columns]="columnasMaterialesCompuestos" (editRow)="editarMaterialCompuesto($event)"
+                    (deleteRow)="deleteMaterialCompuesto($event)" (addMaterialRow)="agregarMaterial($event)"></app-table>
+            </mat-card>
+        </mat-tab>
+
+        <mat-tab label="Productos">
+            <mat-card class="card-seccion">
+                <app-table class="table" [data]="dataSourceProductos" [columns]="columnasProductos"
+                    (editRow)="editarProducto($event)" (deleteRow)="deleteProducto($event)"></app-table>
+            </mat-card>
+        </mat-tab>
+
+        <mat-tab label="Formulas">
+            <mat-card class="card-seccion">
+                <app-table class="table" [data]="dataSourceFormulas" [columns]="columnasFormulas"></app-table>
+            </mat-card>
+        </mat-tab>
+
+        <mat-tab label="Ventas">
+            <mat-card class="card-seccion">
+                <app-table class="table" [data]="dataSourceVentas" [columns]="columnasVentas"></app-table>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</div>

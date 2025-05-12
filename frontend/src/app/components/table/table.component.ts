@@ -28,6 +28,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Output() editRow = new EventEmitter<any>();
   @Output() deleteRow = new EventEmitter<any>();
   @Output() addMaterialRow = new EventEmitter<any>();
+  @Output() addMaterialCompuestoRow = new EventEmitter<any>();
 
 
   @Input() set data(data: any[]) {

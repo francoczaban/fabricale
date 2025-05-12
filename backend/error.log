@@ -614,3 +614,9 @@
     at C:\FProjects\Fabricale\backend\node_modules\mongoose\lib\document.js:3079:17
     at C:\FProjects\Fabricale\backend\node_modules\mongoose\lib\schemaType.js:1388:9
     at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+2025-05-12 09:01:10 error: Error al crear producto: Error: Stock insuficiente para el material compuesto Salsa. Disponible: 0 LT, requerido: 2 LT
+    at exports.crearProducto (C:\FProjects\Fabricale\backend\controllers\productoController.js:52:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-05-12 09:04:34 error: Error al actualizar material compuesto: Error: El campo "material" es obligatorio en materialesUsados
+    at exports.editarMaterialCompuesto (C:\FProjects\Fabricale\backend\controllers\materialCompuestoController.js:106:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
