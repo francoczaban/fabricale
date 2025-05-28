@@ -15,6 +15,7 @@ import { AgregarCantidadesComponent } from './components/agregar-cantidades/agre
 import { FormulaComponent } from './components/formula/formula.component';
 import { ListaFormulasComponent } from './components/lista-formulas/lista-formulas.component';
 import { VentaComponent } from './components/venta/venta.component';
+import { CategoriaComponent } from './components/categoria/categoria.component';
 
 export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
@@ -30,6 +31,7 @@ export const routes: Routes = [
     { path: 'formula', component: FormulaComponent, canActivate: [authGuard] },
     { path: 'lista-formulas', component: ListaFormulasComponent, canActivate: [authGuard] },
     { path: 'venta', component: VentaComponent, canActivate: [authGuard] },
+    { path: 'categoria', component: CategoriaComponent, canActivate: [authGuard] },
     { path: 'proveedores', component: ProveedorFormComponent, canActivate: [authGuard] }, // Nueva ruta para proveedores
     { path: '', redirectTo: '/listado', pathMatch: 'full' }, // Ruta por defecto
     { path: '**', redirectTo: '/listado', pathMatch: 'full' } // Ruta wildcard para manejar rutas no encontradas

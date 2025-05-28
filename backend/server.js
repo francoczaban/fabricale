@@ -8,6 +8,7 @@ const materialCompuestoRoutes = require("./routes/materialCompuestoRoutes");
 const productoRoutes = require("./routes/productoRoutes");
 const proveedorRoutes = require("./routes/proveedorRoutes");
 const ventasRoutes = require("./routes/ventasRoutes");
+const categoriaRoutes = require("./routes/categoriaRoutes");
 const logger = require("./utils/logger");
 const auth = require('./routes/auth');
 const swaggerUi = require('swagger-ui-express');
@@ -34,6 +35,7 @@ app.use('/api/register', auth);
 app.use('/api/proveedores', proveedorRoutes);
 app.use('/api/formula', formulaRoutes);
 app.use('/api/ventas', ventasRoutes);
+app.use('/api/categoria', categoriaRoutes);
 app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

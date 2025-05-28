@@ -1,0 +1,21 @@
+<form class="categoriaForm" (ngSubmit)="addCategoria()">
+  <h3 class="titulo-seccion">Crear Categoria</h3>
+
+  <mat-card class="card-seccion col3">
+    <!-- <h2 class="titulo-card">Detalles Generales</h2> -->
+    <div class="container">
+      <div class="col1">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="nombre" name="nombre" [(ngModel)]="categoria.nombre" placeholder="Ingrese el nombre" required>
+        </mat-form-field>    
+    </div>
+    </div>
+
+    <div class="acciones-finales">
+      <button mat-flat-button color="primary" type="submit">
+        Guardar Categoria
+      </button>
+    </div>
+  </mat-card>
+</form>

@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs'
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-formula',
@@ -18,7 +19,7 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     ReactiveFormsModule, CommonModule, MatInputModule,
     MatFormFieldModule, MatSelectModule, MatIconModule,
-    MatDividerModule, MatButtonModule, MatTabsModule, MatCardModule
+    MatDividerModule, MatButtonModule, MatTabsModule, MatCardModule, FormsModule
   ],
   templateUrl: './formula.component.html',
   styleUrl: './formula.component.css'
@@ -26,6 +27,7 @@ import { MatCardModule } from '@angular/material/card';
 export class FormulaComponent implements OnInit {
   formulaForm: FormGroup;
   materiales: any[] = [];
+  categoria: any[] = [];
   materialesCompuestos: any[] = [];
   unidadesMedida: string[] = ['KG', 'LT', 'GR', 'CC'];
 
@@ -36,18 +38,36 @@ export class FormulaComponent implements OnInit {
       unidadMedida: ['', Validators.required],
       materialesUsados: this.fb.array([]),
       materialesCompuestosUsados: this.fb.array([]),
+      categoria: ['', Validators.required],
+      categoriaNombre: ''
     });
   }
 
   ngOnInit(): void {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
+    this.cargarCategorias();
+    
   }
 
   cargarMateriales() {
     this.stockService.getMateriales().subscribe((data) => {
       this.materiales = data;
     });
+  }
+
+  cargarCategorias() {
+    this.stockService.getCategoria().subscribe((data) => {
+      this.categoria = data;
+      console.log(this.categoria)
+    });
+  }
+
+  onCategoriaSelect(categoriaId: string) {
+    const categoriaSeleccionado = this.categoria.find(cat => cat._id === categoriaId);
+    if (categoriaSeleccionado) {
+      // this.formulaForm.categoriaNombre = categoriaSeleccionado.nombre;
+    }
   }
 
   cargarMaterialesCompuestos() {

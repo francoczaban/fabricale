@@ -25,11 +25,14 @@ export class ListadoComponent implements OnInit {
   materiales: any[] = [];
   materialesCompuestos: any[] = [];
   productos: any[] = [];
+  categoria: any[] = [];
+  columnasCategoria: TableColumn[] = [];
   columnasMateriales: TableColumn[] = [];
   columnasMaterialesCompuestos: TableColumn[] = [];
   columnasFormulas: TableColumn[] = [];
   columnasVentas: TableColumn[] = [];
   columnasProductos: TableColumn[] = [];
+  dataSourceCategoria: any[] = [];
   dataSourceMateriales: any[] = [];
   dataSourceMaterialesCompuestos: any[] = [];
   dataSourceMaterialesCompuestos2: any[] = [];
@@ -53,6 +56,7 @@ export class ListadoComponent implements OnInit {
     this.cargarProductos();
     this.cargarFormulas();
     this.cargarVentas();
+    this.cargarCategoria();
   }
 
   checkStock(array: any[]) {
@@ -131,7 +135,10 @@ export class ListadoComponent implements OnInit {
       { label: 'Total', def: 'total', dataKey: 'total' },
       { label: 'Fecha Venta', def: 'fechaVenta', dataKey: 'fechaVenta' }
     ];
-    
+
+    this.columnasCategoria = [
+      { label: 'Categoria', def: 'nombre', dataKey: 'nombre' }      
+    ];
   }
 
   cargarMateriales() {
@@ -139,6 +146,17 @@ export class ListadoComponent implements OnInit {
       next: (data) => {
         this.dataSourceMateriales = data;
         this.checkStock(this.dataSourceMateriales);
+      },
+      error: (error) => {
+        console.error('Error al obtener los materiales:', error);
+      }
+    });
+  }
+
+  cargarCategoria() {
+    this.stockService.getCategoria().subscribe({
+      next: (data) => {
+        this.dataSourceCategoria = data;        
       },
       error: (error) => {
         console.error('Error al obtener los materiales:', error);

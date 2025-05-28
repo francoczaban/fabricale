@@ -79,5 +79,20 @@ export class StockService {
     return this.http.get(`${this.apiUrl}/formula`);
   }
 
+  getCategoria(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/categoria`);
+  }
+
+  addCategoria(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/categoria`, data);
+  }
+
+  updateCategoria(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/categoria/${id}`, data);
+  }
+
+  deleteCategoria(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/categoria/${id}`);
+  }
 
 }
