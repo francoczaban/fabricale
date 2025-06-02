@@ -47,7 +47,7 @@ export class FormulaComponent implements OnInit {
     this.cargarMateriales();
     this.cargarMaterialesCompuestos();
     this.cargarCategorias();
-    
+
   }
 
   cargarMateriales() {
@@ -64,11 +64,14 @@ export class FormulaComponent implements OnInit {
   }
 
   onCategoriaSelect(categoriaId: string) {
-    const categoriaSeleccionado = this.categoria.find(cat => cat._id === categoriaId);
-    if (categoriaSeleccionado) {
-      // this.formulaForm.categoriaNombre = categoriaSeleccionado.nombre;
+    const categoriaSeleccionada = this.categoria.find(cat => cat._id === categoriaId);
+    if (categoriaSeleccionada) {
+      this.formulaForm.patchValue({
+        categoriaNombre: categoriaSeleccionada.nombre
+      });
     }
   }
+
 
   cargarMaterialesCompuestos() {
     this.stockService.getMaterialesCompuestos().subscribe((data) => {
@@ -114,6 +117,8 @@ export class FormulaComponent implements OnInit {
         nombre: this.formulaForm.value.nombre,
         unidadMedida: this.formulaForm.value.unidadMedida,
         descripcion: this.formulaForm.value.descripcion,
+        categoria: this.formulaForm.value.categoria,
+        categoriaNombre: this.formulaForm.value.categoriaNombre,
         materialesUsados: this.formulaForm.value.materialesUsados.map((m: any) => ({
           material: typeof m.material === 'string' ? { _id: m.material } : m.material,
           cantidad: m.cantidad,
@@ -138,4 +143,5 @@ export class FormulaComponent implements OnInit {
       );
     }
   }
+
 }

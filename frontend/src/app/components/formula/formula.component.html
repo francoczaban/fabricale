@@ -30,7 +30,7 @@
           <mat-form-field appearance="outline" class="full-width">
           <mat-label>Categoria</mat-label>
           <mat-select formControlName="categoria" (selectionChange)="onCategoriaSelect($event.value)" name="categoria" required>
-            <mat-option *ngFor="let cat of categoria" [value]="categoria">{{ cat.nombre }}</mat-option>
+            <mat-option *ngFor="let cat of categoria" [value]="cat._id">{{ cat.nombre }}</mat-option>
           </mat-select>
         </mat-form-field>
         </div>

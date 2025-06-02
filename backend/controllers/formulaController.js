@@ -6,21 +6,23 @@ const MaterialCompuesto = require("../models/MaterialCompuesto");
 const logger = require("../utils/logger");
 
 // Crear un nuevo forula con manejo de transacción
-exports.crearFormula = async(req, res) => {
+exports.crearFormula = async (req, res) => {
     try {
-        const { nombre, unidadMedida, descripcion, materialesUsados, materialesCompuestosUsados } = req.body; //LE SAQUE ALERTA STOCK
+        const { nombre, unidadMedida, descripcion, materialesUsados, materialesCompuestosUsados, categoria, categoriaNombre } = req.body;
 
         logger.info(`Intentando crear formula: ${nombre}`);
-
 
         // Crear la nueva formula
         const formula = new Formula({
             nombre,
             unidadMedida,
             descripcion,
+            categoria,
+            categoriaNombre,
             materialesUsados,
             materialesCompuestosUsados,
         });
+        
         console.log('Formula: ', formula);
 
         await formula.save();
@@ -33,7 +35,7 @@ exports.crearFormula = async(req, res) => {
 };
 
 
-exports.obtenerFormulas = async(req, res) => {
+exports.obtenerFormulas = async (req, res) => {
     try {
         const formulas = await Formula.find()
             .populate("materialesUsados.material", "nombre cantidad unidadMedida")
